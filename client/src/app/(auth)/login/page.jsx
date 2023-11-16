@@ -16,7 +16,7 @@ const Login = () => {
             <div>
               <Link href='/'>
                 <h2 className='text-2xl font-bold text-white sm:text-3xl'>
-                  Pixel Sentience
+                  PixelImagine
                 </h2>
               </Link>
 

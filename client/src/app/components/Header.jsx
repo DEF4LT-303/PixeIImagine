@@ -10,7 +10,7 @@ const Header = () => {
               Transforming Creativity with AI Image Generation
             </h1>
             <p className='mt-4 text-gray-600 dark:text-gray-300'>
-              Unleash your inner creativity and transform them into images
+              Unleash your imagination and transform them into images
             </p>
             <div className='grid gap-6 mt-8 sm:grid-cols-2'>
               <div className='flex items-center text-gray-800 -px-3 dark:text-gray-200'>
