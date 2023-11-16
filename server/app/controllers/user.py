@@ -1,6 +1,6 @@
 from app.models.User import UserModel
 from flask import jsonify, abort, request
-from flask_login import login_user
+from flask_jwt_extended import create_access_token, create_refresh_token
 
 def get_users():
     users = UserModel.get_users()
@@ -48,6 +48,12 @@ def login_user():
         user_id = UserModel.authenticate_user(email, password)
 
         if user_id:
-            return jsonify(UserModel.get_user(user_id))
+            access_token = create_access_token(identity=user_id)
+            refresh_token = create_refresh_token(identity=user_id)
+
+            tokens_data = {'access_token': access_token, 'refresh_token': refresh_token}
+            response_data = {'user': UserModel.get_user(user_id), 'tokens': tokens_data}
+            
+            return jsonify(response_data)
 
     return jsonify({'error': 'Invalid email or password'}), 401
