@@ -36,7 +36,7 @@ const Navbar = () => {
               <Link href='/'>
                 <Image src='/logo.png' width={50} height={50} />
               </Link>
-              PixelImagine
+              PixeIImagine
             </div>
             <div className='flex-none'>
               {user ? (

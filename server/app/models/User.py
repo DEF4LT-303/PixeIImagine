@@ -21,6 +21,16 @@ class UserModel:
         
         else:
           return None
+        
+    @staticmethod
+    def get_user_by_email(email):
+        user = mongo.db.users.find_one({'email': email})
+        
+        if user:
+          return {key: str(value) if key == '_id' else value for key, value in user.items()}
+        
+        else:
+          return None
 
     @staticmethod   
     def get_user_by_email(email):

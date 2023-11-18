@@ -1,8 +1,24 @@
+'use client';
+
+import { getProviders, signIn } from 'next-auth/react';
 import Image from 'next/image';
 import Link from 'next/link';
-Image;
+import { useEffect, useState } from 'react';
 
 const Register = () => {
+  // const { data: session } = useSession();
+  const [providers, setProviders] = useState(null);
+  // const [toggleDropdown, setToggleDropdown] = useState(false);
+
+  useEffect(() => {
+    const setupProvider = async () => {
+      const response = await getProviders();
+
+      setProviders(response);
+    };
+    setupProvider();
+  }, []);
+
   return (
     <section class=''>
       <div class='flex justify-center min-h-screen'>
@@ -56,7 +72,7 @@ const Register = () => {
                 />
               </div>
 
-              <div>
+              {/* <div>
                 <label class='block mb-2 text-sm text-gray-600 dark:text-gray-200'>
                   Phone number
                 </label>
@@ -66,9 +82,9 @@ const Register = () => {
                   required
                   class='block w-full px-5 py-3 mt-2 text-gray-700 placeholder-gray-400  border border-gray-200 rounded-lg dark:placeholder-gray-600 bg-inherit dark:text-gray-300 dark:border-gray-700 focus:border-blue-400 dark:focus:border-blue-400 focus:ring-blue-400 focus:outline-none focus:ring focus:ring-opacity-40'
                 />
-              </div>
+              </div> */}
 
-              <div>
+              <div className='md:col-span-2'>
                 <label class='block mb-2 text-sm text-gray-600 dark:text-gray-200'>
                   Email address
                 </label>
@@ -120,16 +136,24 @@ const Register = () => {
                   />
                 </svg>
               </button>
-              <button className='btn w-full bg-inherit border-slate-200 dark:border-slate-700 text-slate-700 dark:text-slate-200  hover:text-slate-900 dark:hover:text-slate-300 dark:hover:bg-slate-700'>
-                {/* <span className='loading loading-spinner'></span> */}
-                <img
-                  className='w-6 h-6'
-                  src='https://www.svgrepo.com/show/475656/google-color.svg'
-                  loading='lazy'
-                  alt='google logo'
-                ></img>
-                Login with Google
-              </button>
+              {providers &&
+                Object.values(providers).map((provider) => (
+                  <button
+                    type='button'
+                    key={provider.name}
+                    onClick={() => signIn(provider.id)}
+                    className='btn w-full bg-inherit border-slate-200 dark:border-slate-700 text-slate-700 dark:text-slate-200  hover:text-slate-900 dark:hover:text-slate-300 dark:hover:bg-slate-700'
+                  >
+                    {/* <span className='loading loading-spinner'></span> */}
+                    <img
+                      className='w-6 h-6'
+                      src='https://www.svgrepo.com/show/475656/google-color.svg'
+                      loading='lazy'
+                      alt='google logo'
+                    ></img>
+                    Login with Google
+                  </button>
+                ))}
             </form>
             <div className='flex justify-start mx-1'>
               <p className='mt-6 text-sm text-center text-gray-400'>
