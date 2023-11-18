@@ -48,6 +48,12 @@ const Login = () => {
     setOpenSnackbar(false);
   };
 
+  const user = useSelector((state) => state.user.currentUser);
+
+  if (user) {
+    router.push('/');
+  }
+
   return (
     <div className=''>
       <div className='flex justify-center h-screen'>

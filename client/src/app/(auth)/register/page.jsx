@@ -84,20 +84,11 @@ const Register = () => {
     }
   };
 
-  // useEffect(() => {
-  //   const handleBeforeUnload = () => {
-  //     // Dispatch the loginFailure action when the page is refreshed
-  //     dispatch(loginFailure());
-  //   };
+  const user = useSelector((state) => state.user.currentUser);
 
-  //   // Add the event listener for beforeunload
-  //   window.addEventListener('beforeunload', handleBeforeUnload);
-
-  //   // Clean up the event listener when the component is unmounted
-  //   return () => {
-  //     window.removeEventListener('beforeunload', handleBeforeUnload);
-  //   };
-  // }, [dispatch]);
+  if (user) {
+    router.push('/');
+  }
 
   const isFieldEmpty = (value) => {
     return value.trim() === '' && submitted;

@@ -1,8 +1,17 @@
+'use client';
+
 import Image from 'next/image';
 import Link from 'next/link';
+import { useDispatch, useSelector } from 'react-redux';
+import { logout } from '../api/redux/userRedux';
 
 const Navbar = () => {
-  const user = true;
+  const dispatch = useDispatch();
+  const user = useSelector((state) => state.user.currentUser);
+
+  const handleClick = () => {
+    dispatch(logout());
+  };
 
   return (
     <>
@@ -34,7 +43,7 @@ const Navbar = () => {
             </div>
             <div className='flex-1 lg:px-2 lg:mx-0 gap-3 text-xs lg:text-base'>
               <Link href='/'>
-                <Image src='/logo.png' width={50} height={50} />
+                <Image src='/logo.png' width={50} height={50} alt='logo' />
               </Link>
               PixeIImagine
             </div>
@@ -42,12 +51,17 @@ const Navbar = () => {
               {user ? (
                 <ul className='menu menu-horizontal flex items-center'>
                   <li>
-                    <a>Logout</a>
+                    <button onClick={handleClick}>Logout</button>
                   </li>
                   <li>
                     <div className='avatar'>
                       <div className='w-10 rounded-full ring ring-primary ring-offset-base-100 ring-offset-2'>
-                        <img src='https://i.pinimg.com/originals/12/25/7c/12257c071a178a1bbe6ffab5863356cf.jpg' />
+                        <img
+                          src={
+                            user.user.avatar ||
+                            'https://i.pinimg.com/originals/12/25/7c/12257c071a178a1bbe6ffab5863356cf.jpg'
+                          }
+                        />
                       </div>
                     </div>
                   </li>
@@ -72,7 +86,7 @@ const Navbar = () => {
             className='drawer-overlay'
           ></label>
           <div className='flex flex-col w-64 h-screen px-5 py-8 overflow-y-auto scrollbar-hide bg-neutral-content border-r rtl:border-r-0 rtl:border-l dark:bg-base-200 dark:border-gray-700'>
-            <Image src='/logo.png' width={50} height={50} />
+            <Image src='/logo.png' width={50} height={50} alt='logo' />
 
             <div className='flex flex-col justify-between flex-1 mt-6'>
               <nav className='flex-1 -mx-3 space-y-3 '>
@@ -192,16 +206,19 @@ const Navbar = () => {
                     <a href='#' className='flex items-center gap-x-2'>
                       <img
                         className='object-cover rounded-full h-7 w-7'
-                        src='https://i.pinimg.com/originals/12/25/7c/12257c071a178a1bbe6ffab5863356cf.jpg'
+                        src={
+                          user.avatar ||
+                          'https://i.pinimg.com/originals/12/25/7c/12257c071a178a1bbe6ffab5863356cf.jpg'
+                        }
                         alt='avatar'
                       />
                       <span className='text-sm font-medium text-gray-700 dark:text-gray-200'>
-                        John Doe
+                        {user.user.firstName} {user.user.lastName}
                       </span>
                     </a>
 
-                    <Link
-                      href='/login'
+                    <button
+                      onClick={handleClick}
                       className='text-gray-500 transition-colors duration-200 rotate-180 dark:text-gray-400 rtl:rotate-0 hover:text-blue-500 dark:hover:text-blue-400'
                     >
                       <svg
@@ -218,7 +235,7 @@ const Navbar = () => {
                           d='M15.75 9V5.25A2.25 2.25 0 0013.5 3h-6a2.25 2.25 0 00-2.25 2.25v13.5A2.25 2.25 0 007.5 21h6a2.25 2.25 0 002.25-2.25V15M12 9l-3 3m0 0l3 3m-3-3h12.75'
                         />
                       </svg>
-                    </Link>
+                    </button>
                   </div>
                 )}
               </div>
