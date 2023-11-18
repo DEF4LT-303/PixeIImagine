@@ -19,6 +19,7 @@ import {
 
 export const login = async (dispatch, userCredentials) => {
   dispatch(loginStart());
+  console.log(userCredentials);
   try {
     const res = await publicRequest.post('/users/login', userCredentials);
     dispatch(loginSuccess(res.data));
