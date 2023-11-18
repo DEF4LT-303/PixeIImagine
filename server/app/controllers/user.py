@@ -29,17 +29,17 @@ def register_user():
         data = request.get_json()  
         email = data.get('email')
         password = data.get('password')
-        first_name = data.get('first_name')
-        last_name = data.get('last_name')
+        firstName = data.get('firstName')
+        lastName = data.get('lastName')
 
-        if not email or not password or not first_name or not last_name:
+        if not email or not password or not firstName or not lastName:
             return jsonify({'error': 'Missing fields'}), 400
 
         existing_user = UserModel.get_user_by_email(email)
         if existing_user:
             return jsonify({'error': 'email already taken'}), 400
 
-        user_id = UserModel.register_user(email, password)
+        user_id = UserModel.register_user(email, password, firstName, lastName)
         return jsonify(UserModel.get_user(user_id))
 
     return jsonify({'error': 'Invalid request method'}), 405

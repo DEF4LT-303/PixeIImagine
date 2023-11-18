@@ -6,7 +6,6 @@ import os
 
 app = Flask(__name__)
 app.config.from_object(Config)
-
 mongo = PyMongo(app)
 
 from app.routes.user import user_blueprint

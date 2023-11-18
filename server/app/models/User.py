@@ -41,9 +41,9 @@ class UserModel:
             return None
 
     @staticmethod
-    def register_user(email, password, first_name, last_name):
+    def register_user(email, password, firstName, lastName):
         hashed_password = bcrypt.generate_password_hash(password).decode('utf-8')
-        user_data = {'email': email, 'password': hashed_password, 'first_name': first_name, 'last_name': last_name}
+        user_data = {'email': email, 'password': hashed_password, 'firstName': firstName, 'lastName': lastName}
         user_id = mongo.db.users.insert_one(user_data).inserted_id
         return str(user_id)
 
