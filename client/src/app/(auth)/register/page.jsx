@@ -5,6 +5,7 @@ import { registrationFailure } from '@/app/api/redux/userRedux';
 import { getProviders, signIn } from 'next-auth/react';
 import Image from 'next/image';
 import Link from 'next/link';
+import { useRouter } from 'next/navigation';
 import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
@@ -24,6 +25,7 @@ const Register = () => {
   const [openSnackbar, setOpenSnackbar] = useState(false);
 
   const dispatch = useDispatch();
+  const router = useRouter();
 
   useEffect(() => {
     const setupProvider = async () => {
@@ -67,6 +69,7 @@ const Register = () => {
       // dispatch(logout());
       setErrorMessage('Registration successful');
       setOpenSnackbar(true);
+      router.push('/login');
       // setTimeout(() => {
       //   history.push('/login');
       // }, 3000);
@@ -196,7 +199,7 @@ const Register = () => {
 
               <button
                 onClick={handleRegister}
-                disabled={isFetching}
+                disabled={false}
                 class='flex items-center justify-between w-full px-6 py-3 text-sm tracking-wide text-white capitalize transition-colors duration-300 transform bg-blue-500 rounded-lg hover:bg-blue-400 focus:outline-none focus:ring focus:ring-blue-300 focus:ring-opacity-50'
               >
                 <span>Sign Up </span>

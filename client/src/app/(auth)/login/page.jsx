@@ -3,6 +3,7 @@
 import { login } from '@/app/api/redux/apiCalls';
 import Image from 'next/image';
 import Link from 'next/link';
+import { useRouter } from 'next/navigation';
 import { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
@@ -15,6 +16,7 @@ const Login = () => {
   const [errorMessage, setErrorMessage] = useState('');
 
   const dispatch = useDispatch();
+  const router = useRouter();
 
   const handleClicked = async (e) => {
     e.preventDefault();
@@ -24,6 +26,7 @@ const Login = () => {
 
     try {
       await login(dispatch, { email, password });
+      router.push('/');
     } catch (error) {
       if (error.message === 'Invalid email or password') {
         setErrorMessage('Invalid email or password');
@@ -135,7 +138,7 @@ const Login = () => {
                 <div className='mt-6'>
                   <button
                     onClick={handleClicked}
-                    disabled={isFetching}
+                    disabled={false}
                     className='w-full px-4 py-2 tracking-wide text-white transition-colors duration-300 transform bg-blue-500 rounded-lg hover:bg-blue-400 focus:outline-none focus:bg-blue-400 focus:ring focus:ring-blue-300 focus:ring-opacity-50'
                   >
                     Sign in
