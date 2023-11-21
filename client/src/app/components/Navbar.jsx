@@ -56,12 +56,7 @@ const Navbar = () => {
                   <li>
                     <div className='avatar'>
                       <div className='w-10 rounded-full ring ring-primary ring-offset-base-100 ring-offset-2'>
-                        <img
-                          src={
-                            user.user.avatar ||
-                            'https://i.pinimg.com/originals/12/25/7c/12257c071a178a1bbe6ffab5863356cf.jpg'
-                          }
-                        />
+                        <img src={user.user?.avatar || 'default.jpg'} />
                       </div>
                     </div>
                   </li>
@@ -206,14 +201,11 @@ const Navbar = () => {
                     <a href='#' className='flex items-center gap-x-2'>
                       <img
                         className='object-cover rounded-full h-7 w-7'
-                        src={
-                          user.avatar ||
-                          'https://i.pinimg.com/originals/12/25/7c/12257c071a178a1bbe6ffab5863356cf.jpg'
-                        }
+                        src={user.user?.avatar || '/default.jpg'}
                         alt='avatar'
                       />
                       <span className='text-sm font-medium text-gray-700 dark:text-gray-200'>
-                        {user.user.firstName} {user.user.lastName}
+                        {user.user?.firstName} {user.user?.lastName}
                       </span>
                     </a>
 

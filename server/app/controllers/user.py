@@ -14,7 +14,7 @@ def get_user(_id):
     if user:
         return jsonify(user)
     else:
-        abort(404, description="User not found")
+        return jsonify({'error': 'User not found'}), 404
 
 def get_user_by_email(email):
     user = UserModel.get_user_by_email(email)
@@ -22,7 +22,7 @@ def get_user_by_email(email):
     if user:
         return jsonify(user)
     else:
-        abort(404, description="User not found")
+        return jsonify({'error': 'User not found'}), 404
 
 def register_user():
     if request.method == 'POST':
