@@ -11,24 +11,17 @@ const Profile = () => {
   if (loading) {
     return (
       <section class='bg-white dark:bg-base-100'>
-        <div class='container px-6 py-8 mx-auto animate-pulse'>
-          <div class='text-center'>
-            <p class='w-32 h-2 mx-auto bg-gray-200 rounded-lg dark:bg-gray-700'></p>
-
-            <div class='flex flex-wrap justify-center gap-4 mt-10'>
-              <p class='w-24 h-2 bg-gray-200 rounded-lg dark:bg-gray-700'></p>
-              <p class='w-24 h-2 bg-gray-200 rounded-lg dark:bg-gray-700'></p>
-              <p class='w-24 h-2 bg-gray-200 rounded-lg dark:bg-gray-700'></p>
-              <p class='w-24 h-2 bg-gray-200 rounded-lg dark:bg-gray-700'></p>
-              <p class='w-24 h-2 bg-gray-200 rounded-lg dark:bg-gray-700'></p>
-            </div>
+        <div class='px-6 py-8 mx-auto animate-pulse'>
+          <div class='flex justify-center sm:justify-start text-center'>
+            <p class='w-32 h-32 bg-gray-200 rounded-full dark:bg-gray-700 ring-4 ring-gray-300 dark:ring-gray-600'></p>
           </div>
 
           <hr class='my-6 border-gray-200 md:my-10 dark:border-gray-700' />
 
-          <div class='flex flex-col items-center sm:flex-row sm:justify-between'>
+          <div class='flex flex-col gap-3 sm:items-start sm:justify-start items-center justify-center '>
             <p class='w-24 h-2 bg-gray-200 rounded-lg dark:bg-gray-700'></p>
 
+            <p class='w-64 h-2 bg-gray-200 rounded-lg dark:bg-gray-700'></p>
             <p class='w-64 h-2 bg-gray-200 rounded-lg dark:bg-gray-700'></p>
           </div>
         </div>
