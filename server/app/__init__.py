@@ -3,10 +3,13 @@ from flask_pymongo import PyMongo
 from config import Config
 from flask_jwt_extended import JWTManager
 import os
+from flask_cors import CORS
+
 
 app = Flask(__name__)
 app.config.from_object(Config)
 mongo = PyMongo(app)
+CORS(app)
 
 from app.routes.user import user_blueprint
 

@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-const BASE_URL = 'http://localhost:5000/api/';
+const BASE_URL = 'http://localhost:5000/';
 
 export const publicRequest = axios.create({
   baseURL: BASE_URL
@@ -11,8 +11,11 @@ export const userRequest = () => {
   const currentUser = user && JSON.parse(user).currentUser;
   const TOKEN = currentUser?.accessToken;
 
+  const headers = TOKEN ? { token: TOKEN } : {};
+
   return axios.create({
     baseURL: BASE_URL,
-    headers: { token: `${TOKEN}` }
+    headers: headers,
+    withCredentials: true
   });
 };

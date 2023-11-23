@@ -84,7 +84,7 @@ const Login = () => {
           <div className='flex-1'>
             <div className='text-center'>
               <div className='flex justify-center mx-auto '>
-                <Image src='/logo.png' width={80} height={80} />
+                <Image src='/logo.png' width={80} height={80} alt='logo' />
               </div>
 
               <p className='mt-3 text-gray-500 dark:text-gray-300'>
@@ -96,10 +96,7 @@ const Login = () => {
               <form>
                 <div className='mt-6'>
                   <div>
-                    <label
-                      for='email'
-                      className='block mb-2 text-sm text-gray-600 dark:text-gray-200'
-                    >
+                    <label className='block mb-2 text-sm text-gray-600 dark:text-gray-200'>
                       Email Address
                     </label>
                     <input
@@ -116,10 +113,7 @@ const Login = () => {
 
                 <div className='mt-6'>
                   <div className='flex justify-between mb-2'>
-                    <label
-                      for='password'
-                      className='text-sm text-gray-600 dark:text-gray-200'
-                    >
+                    <label className='text-sm text-gray-600 dark:text-gray-200'>
                       Password
                     </label>
                     <a
