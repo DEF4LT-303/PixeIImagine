@@ -5,8 +5,8 @@ import ProviderWrapper from './provider';
 const inter = Inter({ subsets: ['latin'] });
 
 export const metadata = {
-  title: 'Sentient SaaS Platform',
-  description: 'Sentient SaaS Platform for AI Image Generation'
+  title: 'PixeIImagine',
+  description: 'SaaS Platform for AI Image Generation'
 };
 
 export default function RootLayout({ children }) {
