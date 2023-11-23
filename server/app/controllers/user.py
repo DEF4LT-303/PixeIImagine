@@ -1,6 +1,6 @@
 from app.models.User import UserModel
 from flask import jsonify, abort, request
-from flask_jwt_extended import create_access_token, create_refresh_token
+from flask_jwt_extended import create_access_token, create_refresh_token, get_jwt_identity
 
 def get_users():
     users = UserModel.get_users()
@@ -23,6 +23,34 @@ def get_user_by_email(email):
         return jsonify(user)
     else:
         return jsonify({'error': 'User not found'}), 404
+    
+def update_user(_id):
+    if request.method == 'PUT':
+        data = request.get_json()  
+
+        user = UserModel.get_user(_id)
+        if not user:
+            return jsonify({'error': 'User not found'}), 404
+
+        try:
+            UserModel.update_user(_id, **data)
+        except ValueError as e:
+            return jsonify({'error': str(e)}), 400
+
+        return jsonify(UserModel.get_user(_id))
+
+    return jsonify({'error': 'Invalid request method'}), 405
+
+def delete_user(_id):
+    if request.method == 'DELETE':
+        user = UserModel.get_user(_id)
+        if not user:
+            return jsonify({'error': 'User not found'}), 404
+
+        UserModel.delete_user(_id)
+        return jsonify({'success': True})
+
+    return jsonify({'error': 'Invalid request method'}), 405
 
 def register_user():
     if request.method == 'POST':
@@ -53,10 +81,13 @@ def login_user():
         if not email or not password:
             return jsonify({'error': 'Missing email or password'}), 400
 
-        user_id = UserModel.authenticate_user(email, password)
+        user = UserModel.authenticate_user(email, password)
 
-        if user_id:
-            access_token = create_access_token(identity=user_id)
+        if user:
+            user_id = str(user['_id'])  # Assuming the user ID is an ObjectId
+            user_identity = {'user_id': user_id, 'isAdmin': user.get('isAdmin', False)}
+
+            access_token = create_access_token(identity=user_identity)
             refresh_token = create_refresh_token(identity=user_id)
 
             tokens_data = {'access_token': access_token, 'refresh_token': refresh_token}
