@@ -27,17 +27,19 @@ const Navbar = () => {
                 className='btn btn-square btn-ghost'
               >
                 <svg
+                  class='w-6 h-6 text-gray-800 dark:text-white'
+                  aria-hidden='true'
                   xmlns='http://www.w3.org/2000/svg'
                   fill='none'
-                  viewBox='0 0 24 24'
-                  className='inline-block w-6 h-6 stroke-current'
+                  viewBox='0 0 8 14'
                 >
                   <path
+                    stroke='currentColor'
                     strokeLinecap='round'
                     strokeLinejoin='round'
-                    strokeWidth='2'
-                    d='M4 6h16M4 12h16M4 18h16'
-                  ></path>
+                    strokeWidth='1'
+                    d='m1 13 5.7-5.326a.909.909 0 0 0 0-1.348L1 1'
+                  />
                 </svg>
               </label>
             </div>
@@ -154,24 +156,25 @@ const Navbar = () => {
 
                 <Link
                   className='flex items-center px-3 py-2 text-gray-600 transition-colors duration-300 transform rounded-lg dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-800 dark:hover:text-gray-200 hover:text-gray-700'
-                  href='/users'
+                  href='/create'
                 >
                   <svg
+                    class='w-6 h-6 text-gray-800 dark:text-white'
+                    aria-hidden='true'
                     xmlns='http://www.w3.org/2000/svg'
                     fill='none'
-                    viewBox='0 0 24 24'
-                    strokeWidth='1.5'
-                    stroke='currentColor'
-                    className='w-6 h-6'
+                    viewBox='0 0 22 20'
                   >
                     <path
+                      stroke='currentColor'
                       strokeLinecap='round'
                       strokeLinejoin='round'
-                      d='M15 19.128a9.38 9.38 0 002.625.372 9.337 9.337 0 004.121-.952 4.125 4.125 0 00-7.533-2.493M15 19.128v-.003c0-1.113-.285-2.16-.786-3.07M15 19.128v.106A12.318 12.318 0 018.624 21c-2.331 0-4.512-.645-6.374-1.766l-.001-.109a6.375 6.375 0 0111.964-3.07M12 6.375a3.375 3.375 0 11-6.75 0 3.375 3.375 0 016.75 0zm8.25 2.25a2.625 2.625 0 11-5.25 0 2.625 2.625 0 015.25 0z'
+                      strokeWidth='1'
+                      d='M11 16.5A2.493 2.493 0 0 1 6.51 18H6.5a2.468 2.468 0 0 1-2.4-3.154 2.98 2.98 0 0 1-.85-5.274 2.468 2.468 0 0 1 .921-3.182 2.477 2.477 0 0 1 1.875-3.344 2.5 2.5 0 0 1 3.41-1.856A2.5 2.5 0 0 1 11 3.5m0 13v-13m0 13a2.492 2.492 0 0 0 4.49 1.5h.01a2.467 2.467 0 0 0 2.403-3.154 2.98 2.98 0 0 0 .847-5.274 2.468 2.468 0 0 0-.921-3.182 2.479 2.479 0 0 0-1.875-3.344A2.5 2.5 0 0 0 13.5 1 2.5 2.5 0 0 0 11 3.5m-8 5a2.5 2.5 0 0 1 3.48-2.3m-.28 8.551a3 3 0 0 1-2.953-5.185M19 8.5a2.5 2.5 0 0 0-3.481-2.3m.28 8.551a3 3 0 0 0 2.954-5.185'
                     />
                   </svg>
 
-                  <span className='mx-2 text-md font-medium'>Users</span>
+                  <span className='mx-2 text-md font-medium'>Create</span>
                 </Link>
 
                 <Link
