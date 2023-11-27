@@ -1,5 +1,5 @@
 from app.models.User import UserModel
-from flask import jsonify, abort, request
+from flask import jsonify, request
 from flask_jwt_extended import create_access_token, create_refresh_token, get_jwt_identity
 
 def get_users():
@@ -84,7 +84,7 @@ def login_user():
         user = UserModel.authenticate_user(email, password)
 
         if user:
-            user_id = str(user['_id'])  # Assuming the user ID is an ObjectId
+            user_id = str(user['_id']) 
             user_identity = {'user_id': user_id, 'isAdmin': user.get('isAdmin', False)}
 
             access_token = create_access_token(identity=user_identity)

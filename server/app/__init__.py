@@ -11,7 +11,8 @@ app.config.from_object(Config)
 mongo = PyMongo(app)
 CORS(app)
 
-from app.routes.user import user_blueprint
+from app.routes.userRoute import user_blueprint
+from app.routes.postRoute import post_blueprint
 
 def initialize_jwt_manager(app):
     jwt = JWTManager(app)
@@ -21,6 +22,7 @@ def initialize_jwt_manager(app):
 jwt = initialize_jwt_manager(app)
 
 app.register_blueprint(user_blueprint, url_prefix='/users')
+app.register_blueprint(post_blueprint, url_prefix='/posts')
 
 # JWT error handlers
 

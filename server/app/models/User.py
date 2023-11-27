@@ -1,7 +1,6 @@
 from app import mongo
 from bson import ObjectId
 from flask_bcrypt import Bcrypt
-from flask_jwt_extended import create_access_token
 
 bcrypt = Bcrypt()
 
