@@ -20,7 +20,7 @@ class PostModel:
       return None
     
   @staticmethod
-  def create_post(title, description, prompt, tags, author, createdAt):
+  def create_post(title, description, prompt, tags, author, image):
     current_time = datetime.now()
 
     post = {
@@ -29,6 +29,9 @@ class PostModel:
       'prompt': prompt,
       'tags': tags,
       'author': author,
+      'image': image,
+      'likes': 0,
+      'comments': [],
       'createdAt': current_time
     }
 
@@ -37,7 +40,7 @@ class PostModel:
     return str(post_id)
   
   @staticmethod
-  def update_post(_id, title=None, description=None, prompt=None, tags=None):
+  def update_post(_id, title=None, description=None, prompt=None, image=None, tags=None, likes=None, comments=None):
     update_data = {}
     if title is not None:
       update_data['title'] = title
@@ -49,7 +52,16 @@ class PostModel:
       update_data['prompt'] = prompt
 
     if tags is not None:
-      update_data['tags'] = tags
+      update_data['tags'] = tags,
+    
+    if image is not None:
+      update_data['image'] = image
+
+    if likes is not None:
+      update_data['likes'] = likes
+
+    if comments is not None:
+      update_data['comments'] = comments
 
     if update_data:
       mongo.db.posts.update_one({'_id': ObjectId(_id)}, {'$set': update_data})
@@ -62,3 +74,6 @@ class PostModel:
   def delete_post(_id):
     mongo.db.posts.delete_one({'_id': ObjectId(_id)})
     
+  @staticmethod
+  def remove_comment_from_post(post_id, comment_id):
+      mongo.db.posts.update_one({'_id': ObjectId(post_id)}, {'$pull': {'comments': comment_id}})

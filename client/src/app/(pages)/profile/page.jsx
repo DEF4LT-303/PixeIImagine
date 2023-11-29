@@ -74,9 +74,9 @@ const Profile = () => {
 
         <div className='mx-auto mt-8'>
           <div className='flex flex-col sm:flex-row gap-2 items-center px-5 ml-5 mt-[-105px]'>
-            <div className='w-20 h-20 z-0 rounded-full overflow-hidden border-4 border-white ring ring-offset-2 ring-offset-primary '>
+            <div className='w-20 h-20 z-0 rounded-full overflow-hidden ring ring-offset-2 ring-offset-primary '>
               <img
-                src={user?.photo || '/default.jpg'}
+                src={user?.avatar || '/default.jpg'}
                 alt='avatar'
                 className='w-full h-full object-cover'
               />

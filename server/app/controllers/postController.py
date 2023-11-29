@@ -24,10 +24,10 @@ def create_post():
         description = data.get('description')
         prompt = data.get('prompt')
         tags = data.get('tags')
-        author =  UserModel.get_user((get_jwt_identity()['user_id']))
-        createdAt = data.get('createdAt')
+        image = data.get('image')
+        author = UserModel.get_user((get_jwt_identity()['user_id']))
         
-        post_id = PostModel.create_post(title, description, prompt, tags, author, createdAt)
+        post_id = PostModel.create_post(title, description, prompt, tags, author, image)
 
         return jsonify(PostModel.get_post(post_id)), 200
     
@@ -40,8 +40,10 @@ def update_post(_id):
         description = data.get('description')
         prompt = data.get('prompt')
         tags = data.get('tags')
+        image = data.get('image')
+        likes = data.get('likes')
 
-        if PostModel.update_post(_id, title, description, prompt, tags):
+        if PostModel.update_post(_id, title, description, prompt, image, tags, likes):
             return jsonify(PostModel.get_post(_id)), 200
         else:
             return jsonify({'error': 'Post not found'}), 404
