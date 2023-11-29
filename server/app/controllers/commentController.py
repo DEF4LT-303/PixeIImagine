@@ -30,6 +30,11 @@ def create_comment(post_id):
 
 def update_comment(_id):
     if request.method == 'PUT':
+        user_id = get_jwt_identity()['user_id']
+
+        if user_id != CommentModel.get_comment(_id).get('author').get('_id'):
+            return jsonify({'error': 'Unauthorized'}), 403
+    
         data = request.get_json()
         content = data.get('content')
 
@@ -41,11 +46,17 @@ def update_comment(_id):
     return jsonify({'error': 'Invalid request method'}), 405
 
 def delete_comment(_id):
+    
     if request.method == 'DELETE':
         comment = CommentModel.get_comment(_id)
 
         if not comment:
             return jsonify({'error': 'Comment not found'}), 404
+        
+        user_id = get_jwt_identity()['user_id']
+
+        if user_id != CommentModel.get_comment(_id).get('author').get('_id'):
+            return jsonify({'error': 'Unauthorized'}), 403
 
         post = comment.get('post_id')
         CommentModel.delete_comment(_id)
