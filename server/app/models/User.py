@@ -40,7 +40,7 @@ class UserModel:
             return None
         
     @staticmethod
-    def update_user(_id, email=None, password=None, firstName=None, lastName=None):
+    def update_user(_id, email=None, password=None, firstName=None, lastName=None, posts=None, prompts=None, avatar=None):
       update_data = {}
       if email is not None:
           existing_user = UserModel.get_user_by_email(email)
@@ -56,6 +56,15 @@ class UserModel:
 
       if lastName is not None:
           update_data['lastName'] = lastName
+        
+      if posts is not None:
+          update_data['posts'] = posts
+      
+      if prompts is not None:
+          update_data['prompts'] = prompts
+
+      if avatar is not None:
+          update_data['avatar'] = avatar
 
       if update_data:
           mongo.db.user.update_one({'_id': ObjectId(_id)}, {'$set': update_data})
@@ -75,7 +84,8 @@ class UserModel:
             'lastName': lastName,
             'isAdmin': False,
             'avatar': '',
-            'posts': []
+            'posts': [],
+            'prompts': [],
         }
 
         user_id = mongo.db.user.insert_one(user_data).inserted_id

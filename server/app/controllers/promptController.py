@@ -25,6 +25,7 @@ def create_prompt():
         author = UserModel.get_user((get_jwt_identity()['user_id']))
         
         prompt_id = PromptModel.create_prompt(prompt, author, image)
+        UserModel.update_user(author['_id'], prompts=author['prompts'] + [PromptModel.get_prompt(prompt_id)])
 
         return jsonify(PromptModel.get_prompt(prompt_id)), 200
     
@@ -38,6 +39,7 @@ def delete_prompt(_id):
             return jsonify({'error': 'Prompt not found'}), 404
         
         PromptModel.delete_prompt(_id)
+        UserModel.update_user(prompt['author']['_id'], prompts=[prompt for prompt in UserModel.get_user(prompt['author']['_id'])['prompts'] if prompt['_id'] != _id])
         return jsonify({'success': True})
 
     return jsonify({'error': 'Invalid request method'}), 405

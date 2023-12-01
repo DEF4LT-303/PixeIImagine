@@ -5,20 +5,20 @@ import Gallery from '@/app/components/Gallery';
 import { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
-const images = [
-  'https://source.unsplash.com/random/200x200/?0',
-  'https://source.unsplash.com/random/200x200/?1',
-  'https://source.unsplash.com/random/200x200/?2',
-  'https://source.unsplash.com/random/200x200/?3',
-  'https://source.unsplash.com/random/200x200/?4',
-  'https://source.unsplash.com/random/200x200/?5',
-  'https://source.unsplash.com/random/200x200/?6',
-  'https://source.unsplash.com/random/200x200/?7',
-  'https://source.unsplash.com/random/200x200/?8',
-  'https://source.unsplash.com/random/200x200/?9',
-  'https://source.unsplash.com/random/200x200/?10',
-  'https://source.unsplash.com/random/200x200/?11'
-];
+// const images = [
+//   'https://source.unsplash.com/random/200x200/?0',
+//   'https://source.unsplash.com/random/200x200/?1',
+//   'https://source.unsplash.com/random/200x200/?2',
+//   'https://source.unsplash.com/random/200x200/?3',
+//   'https://source.unsplash.com/random/200x200/?4',
+//   'https://source.unsplash.com/random/200x200/?5',
+//   'https://source.unsplash.com/random/200x200/?6',
+//   'https://source.unsplash.com/random/200x200/?7',
+//   'https://source.unsplash.com/random/200x200/?8',
+//   'https://source.unsplash.com/random/200x200/?9',
+//   'https://source.unsplash.com/random/200x200/?10',
+//   'https://source.unsplash.com/random/200x200/?11'
+// ];
 
 const Profile = () => {
   const user = useSelector((state) => state.user.currentUser?.user);
@@ -108,7 +108,7 @@ const Profile = () => {
           <h1 className='text-2xl font-bold'>Gallery</h1>
         </div>
 
-        <Gallery images={images} />
+        <Gallery images={user?.prompts} />
       </div>
     </>
   );

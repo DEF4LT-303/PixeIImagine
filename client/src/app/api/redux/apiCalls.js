@@ -1,19 +1,19 @@
-import { publicRequest, userRequest } from '../../requestMethods';
+import { publicRequest } from '../../requestMethods';
 
 import {
-  findUserFailure,
-  findUserStart,
-  findUserSuccess,
   loginFailure,
   loginStart,
   loginSuccess,
   registrationFailure,
   registrationStart,
-  registrationSuccess,
-  updateUserFailure,
-  updateUserStart,
-  updateUserSuccess
+  registrationSuccess
 } from './userRedux';
+
+import {
+  getPromptsFailure,
+  getPromptsStart,
+  getPromptsSuccess
+} from './promptRedux';
 
 // *User API Calls*
 
@@ -49,52 +49,14 @@ export const register = async (dispatch, user) => {
   }
 };
 
-export const getUsers = async (dispatch) => {
-  dispatch(getUsersStart());
+// *Prompt API Calls*
+
+export const getPrompts = async (dispatch) => {
+  dispatch(getPromptsStart());
   try {
-    const res = await publicRequest.get('/users');
-    await dispatch(getUsersSuccess(res.data));
-  } catch (err) {
-    dispatch(getUsersFailure());
+    const res = await publicRequest.get('/prompts');
+    dispatch(getPromptsSuccess(res.data));
+  } catch (error) {
+    dispatch(getPromptsFailure());
   }
 };
-
-export const updateUser = async (id, user, dispatch) => {
-  dispatch(updateUserStart());
-  try {
-    const res = await userRequest.put(`/users/${id}`, user);
-    dispatch(updateUserSuccess(res.data));
-  } catch (err) {
-    dispatch(updateUserFailure());
-  }
-};
-
-export const updateOtherUser = async (id, user, dispatch) => {
-  dispatch(updateStart());
-  try {
-    const res = await userRequest.put(`/users/${id}`, user);
-    dispatch(update(res.data));
-  } catch (err) {
-    dispatch(updateFailure());
-  }
-};
-
-export const findUser = async (id, dispatch) => {
-  dispatch(findUserStart());
-  try {
-    const res = await publicRequest.get(`/users/find/${id}`);
-    await dispatch(findUserSuccess(res.data));
-  } catch (err) {
-    dispatch(findUserFailure());
-  }
-};
-
-// export const deleteUser = async (id, dispatch) => {
-//   dispatch(updateStart());
-//   try {
-//     await userRequest.delete(`/users/${id}`);
-//     dispatch(remove(id));
-//   } catch (err) {
-//     dispatch(updateFailure());
-//   }
-// };
