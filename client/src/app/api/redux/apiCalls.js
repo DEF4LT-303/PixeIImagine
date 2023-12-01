@@ -1,4 +1,4 @@
-import { publicRequest } from '../../requestMethods';
+import { publicRequest, userRequest } from '../../requestMethods';
 
 import {
   loginFailure,
@@ -8,12 +8,6 @@ import {
   registrationStart,
   registrationSuccess
 } from './userRedux';
-
-import {
-  getPromptsFailure,
-  getPromptsStart,
-  getPromptsSuccess
-} from './promptRedux';
 
 // *User API Calls*
 
@@ -51,12 +45,19 @@ export const register = async (dispatch, user) => {
 
 // *Prompt API Calls*
 
-export const getPrompts = async (dispatch) => {
-  dispatch(getPromptsStart());
+export const createPrompt = async (prompt) => {
   try {
-    const res = await publicRequest.get('/prompts');
-    dispatch(getPromptsSuccess(res.data));
+    const res = await userRequest.post('/prompts', prompt);
+    return res.data;
   } catch (error) {
-    dispatch(getPromptsFailure());
+    console.log(error);
+  }
+};
+
+export const deletePrompt = async (id) => {
+  try {
+    await userRequest.delete(`/prompts/${id}`);
+  } catch (error) {
+    console.log(error);
   }
 };
