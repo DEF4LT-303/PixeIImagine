@@ -14,6 +14,7 @@ CORS(app)
 from app.routes.userRoute import user_blueprint
 from app.routes.postRoute import post_blueprint
 from app.routes.commentRoute import comment_blueprint
+from app.routes.promptRoute import prompt_blueprint
 
 def initialize_jwt_manager(app):
     jwt = JWTManager(app)
@@ -25,6 +26,7 @@ jwt = initialize_jwt_manager(app)
 app.register_blueprint(user_blueprint, url_prefix='/users')
 app.register_blueprint(post_blueprint, url_prefix='/posts')
 app.register_blueprint(comment_blueprint, url_prefix='/comments')
+app.register_blueprint(prompt_blueprint, url_prefix='/prompts')
 
 # JWT error handlers
 
