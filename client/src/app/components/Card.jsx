@@ -1,4 +1,5 @@
 const Card = ({ feed }) => {
+  console.log(feed);
   return (
     // <section className='w-full p-4 lg:p-8 '>
     //   <div className='container mx-auto space-y-12'>
@@ -42,12 +43,12 @@ const Card = ({ feed }) => {
       </div>
       <div>
         <img
-          src={feed.img}
+          src={feed.image}
           alt=''
           className='object-cover w-full mb-4 h-60 sm:h-96 dark:bg-gray-500'
         />
         <h2 className='mb-1 text-xl font-semibold'>{feed.title}</h2>
-        <p className='text-sm dark:text-gray-400'>{feed.desc}</p>
+        <p className='text-sm dark:text-gray-400'>{feed.description}</p>
       </div>
       <div className='flex flex-wrap justify-between'>
         <div className='space-x-2'>

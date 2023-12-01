@@ -9,12 +9,19 @@ from flask_cors import CORS
 app = Flask(__name__)
 app.config.from_object(Config)
 mongo = PyMongo(app)
-CORS(app)
+CORS(app, supports_credentials=True)
 
 from app.routes.userRoute import user_blueprint
 from app.routes.postRoute import post_blueprint
 from app.routes.commentRoute import comment_blueprint
 from app.routes.promptRoute import prompt_blueprint
+
+@app.route('/')
+def index():
+    return jsonify({
+        'status': 200,
+        'msg': 'Welcome to the API!'
+    }), 200
 
 def initialize_jwt_manager(app):
     jwt = JWTManager(app)

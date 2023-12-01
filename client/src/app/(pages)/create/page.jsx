@@ -1,5 +1,6 @@
 'use client';
 
+import { createPrompt } from '@/app/api/redux/apiCalls';
 import { useState } from 'react';
 
 async function query(data, model) {
@@ -52,10 +53,40 @@ const Create = () => {
   };
 
   const handleSave = () => {
-    setTimeout(() => {
-      setGeneratedImage(null);
-      setTitle('');
-    }, 1000);
+    if (!generatedImage) {
+      alert('No image to save');
+      return;
+    }
+
+    // Convert the generated image to base64
+    const canvas = document.createElement('canvas');
+    const ctx = canvas.getContext('2d');
+    const img = new Image();
+    img.src = generatedImage;
+
+    img.onload = () => {
+      canvas.width = img.width;
+      canvas.height = img.height;
+      ctx.drawImage(img, 0, 0, img.width, img.height);
+
+      // Convert canvas to base64
+      const base64Image = canvas.toDataURL('image/png');
+
+      // Call the API to save the prompt with the base64 image
+      const promptData = {
+        prompt: title,
+        image: base64Image
+      };
+
+      createPrompt(promptData)
+        .then((res) => {
+          console.log('Prompt saved successfully:', res);
+          handleClear();
+        })
+        .catch((error) => {
+          console.error('Error saving prompt:', error);
+        });
+    };
   };
 
   return (

@@ -1,4 +1,8 @@
+'use client';
+
+import { getPosts } from '@/app/api/redux/apiCalls';
 import Card from '@/app/components/Card';
+import { useEffect, useState } from 'react';
 
 const feeds = [
   {
@@ -83,6 +87,15 @@ const feeds = [
 
 const Feeds = () => {
   const loading = false;
+
+  const [posts, setPosts] = useState([]);
+  useEffect(() => {
+    const fetchPosts = async () => {
+      const res = await getPosts();
+      setPosts(res);
+    };
+    fetchPosts();
+  }, []);
 
   if (loading) {
     return (
@@ -169,8 +182,8 @@ const Feeds = () => {
         </p>
       </div>
       <div className='flex flex-col lg:flex-row flex-wrap items-center justify-center py-10 gap-10 mx-5'>
-        {feeds.map((feed) => (
-          <Card feed={feed} />
+        {posts.map((feed, index) => (
+          <Card key={index} feed={feed} />
         ))}
       </div>
     </div>

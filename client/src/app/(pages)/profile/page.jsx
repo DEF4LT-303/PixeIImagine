@@ -22,7 +22,7 @@ import { useDispatch, useSelector } from 'react-redux';
 
 const Profile = () => {
   const user = useSelector((state) => state.user.currentUser?.user);
-  const prompts = user.prompts;
+  const prompts = user?.prompts;
   const loading = false;
 
   const dispatch = useDispatch();
@@ -36,8 +36,6 @@ const Profile = () => {
   const handleCloseModal = () => {
     setOpenModal(false);
   };
-
-  console.log(prompts);
 
   if (loading) {
     return (

@@ -43,11 +43,22 @@ export const register = async (dispatch, user) => {
   }
 };
 
+// *Post API Calls*
+
+export const getPosts = async () => {
+  try {
+    const res = await publicRequest.get('/posts');
+    return res.data;
+  } catch (error) {
+    console.log(error);
+  }
+};
+
 // *Prompt API Calls*
 
 export const createPrompt = async (prompt) => {
   try {
-    const res = await userRequest.post('/prompts', prompt);
+    const res = await userRequest().post('/prompts', prompt);
     return res.data;
   } catch (error) {
     console.log(error);
@@ -56,7 +67,7 @@ export const createPrompt = async (prompt) => {
 
 export const deletePrompt = async (id) => {
   try {
-    await userRequest.delete(`/prompts/${id}`);
+    await userRequest().delete(`/prompts/${id}`);
   } catch (error) {
     console.log(error);
   }

@@ -11,7 +11,7 @@ export const userRequest = () => {
   const currentUser = user && JSON.parse(user).currentUser;
   const TOKEN = currentUser?.accessToken;
 
-  const headers = TOKEN ? { token: TOKEN } : {};
+  const headers = TOKEN ? { Authorization: `Bearer ${TOKEN}` } : {};
 
   return axios.create({
     baseURL: BASE_URL,
