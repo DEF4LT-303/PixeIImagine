@@ -1,7 +1,6 @@
 'use client';
 
-import { getPostById, updatePost } from '@/app/api/redux/apiCalls';
-import { Chip } from '@nextui-org/react';
+import { deletePost, getPostById, updatePost } from '@/app/api/redux/apiCalls';
 import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
@@ -49,6 +48,15 @@ const Post = () => {
     }
   };
 
+  const handleDelete = async () => {
+    try {
+      await deletePost(feed._id, dispatch);
+      window.location.replace('/feeds');
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
   if (loading) {
     return (
       <div className='flex flex-col m-8 rounded shadow-md w-60 sm:w-80 animate-pulse h-96'>
@@ -90,16 +98,26 @@ const Post = () => {
             </div>
           </div>
           {user && user._id == feed?.author._id && (
-            <div>
-              <svg
-                className='w-6 h-6 text-gray-800 dark:text-white'
-                aria-hidden='true'
-                xmlns='http://www.w3.org/2000/svg'
-                fill='currentColor'
-                viewBox='0 0 16 3'
-              >
-                <path d='M2 0a1.5 1.5 0 1 1 0 3 1.5 1.5 0 0 1 0-3Zm6.041 0a1.5 1.5 0 1 1 0 3 1.5 1.5 0 0 1 0-3ZM14 0a1.5 1.5 0 1 1 0 3 1.5 1.5 0 0 1 0-3Z' />
-              </svg>
+            <div className='dropdown dropdown-left'>
+              <button>
+                <svg
+                  className='w-6 h-6 text-gray-800 dark:text-white'
+                  aria-hidden='true'
+                  xmlns='http://www.w3.org/2000/svg'
+                  fill='currentColor'
+                  viewBox='0 0 16 3'
+                >
+                  <path d='M2 0a1.5 1.5 0 1 1 0 3 1.5 1.5 0 0 1 0-3Zm6.041 0a1.5 1.5 0 1 1 0 3 1.5 1.5 0 0 1 0-3ZM14 0a1.5 1.5 0 1 1 0 3 1.5 1.5 0 0 1 0-3Z' />
+                </svg>
+                <ul
+                  tabIndex={0}
+                  className='dropdown-content z-[1] menu p-2 shadow bg-base-100 rounded-box w-52'
+                >
+                  <li>
+                    <a onClick={handleDelete}>Delete</a>
+                  </li>
+                </ul>
+              </button>
             </div>
           )}
         </div>
@@ -128,14 +146,6 @@ const Post = () => {
                 AI, orange, glasses, desert
               </p>
             </span>
-            <div className='flex flex-row gap-2'>
-              <p className='text-xl text-gray-400'>Tags:</p>
-              {feed?.tags.map((tag) => (
-                <Chip key={tag} color='primary' size='sm' className='mt-1'>
-                  {tag}
-                </Chip>
-              ))}
-            </div>
           </div>
         </div>
         <div className='flex flex-wrap justify-between'>

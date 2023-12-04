@@ -56,11 +56,11 @@ const postlice = createSlice({
       state.isFetching = false;
       state.error = true;
     },
-    deletePosttart: (state) => {
+    deletePostStart: (state) => {
       state.isFetching = true;
       state.error = false; // Reset error to false when starting delete
     },
-    deletePostuccess: (state, action) => {
+    deletePostSuccess: (state, action) => {
       const removedIds = action.payload;
       state.posts = state.post.filter((post) => {
         return !removedIds.includes(post.id);
@@ -84,8 +84,8 @@ export const {
   createPostSuccess,
   getPostsFailure,
   getPostByIdSuccess,
-  deletePosttart,
-  deletePostuccess,
+  deletePostStart,
+  deletePostSuccess,
   deletePostFailure
 } = postlice.actions;
 

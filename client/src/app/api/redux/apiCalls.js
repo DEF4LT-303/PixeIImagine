@@ -13,6 +13,9 @@ import {
 } from './userRedux';
 
 import {
+  deletePostFailure,
+  deletePostStart,
+  deletePostSuccess,
   getPostByIdSuccess,
   getPostsFailure,
   getPostsStart,
@@ -93,6 +96,16 @@ export const updatePost = async (id, post, dispatch) => {
     dispatch(updatePostSuccess(res.data));
   } catch (error) {
     dispatch(updatePostFailure());
+  }
+};
+
+export const deletePost = async (id, dispatch) => {
+  dispatch(deletePostStart());
+  try {
+    const res = await userRequest().delete(`/posts/${id}`);
+    dispatch(deletePostSuccess(res.data));
+  } catch (error) {
+    dispatch(deletePostFailure());
   }
 };
 

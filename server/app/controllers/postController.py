@@ -28,7 +28,7 @@ def create_post():
         author = UserModel.get_user((get_jwt_identity()['user_id']))
 
         post_id = PostModel.create_post(title, description, prompt, tags, author, image)
-        UserModel.update_user(author['_id'], posts=author['posts'] + [PostModel.get_post(post_id)])
+        UserModel.update_user(author['_id'], posts=author['posts'] + [post_id])
 
         return jsonify(PostModel.get_post(post_id)), 200
     
@@ -45,7 +45,7 @@ def update_post(_id):
         likes = data.get('likes')
 
         if PostModel.update_post(_id, title, description, prompt, image, tags, likes):
-            UserModel.update_user(PostModel.get_post(_id)['author']['_id'], posts=[post for post in UserModel.get_user(PostModel.get_post(_id)['author']['_id'])['posts'] if post['_id'] != _id] + [PostModel.get_post(_id)])
+            # UserModel.update_user(PostModel.get_post(_id)['author']['_id'], posts=[post for post in UserModel.get_user(PostModel.get_post(_id)['author']['_id'])['posts'] if post['_id'] != _id] + [PostModel.get_post(_id)])
             return jsonify(PostModel.get_post(_id)), 200
         else:
             return jsonify({'error': 'Post not found'}), 404
