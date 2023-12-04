@@ -4,6 +4,7 @@ const postlice = createSlice({
   name: 'posts',
   initialState: {
     posts: [],
+    post: {},
     isFetching: false,
     error: true
   },
@@ -48,7 +49,7 @@ const postlice = createSlice({
     },
     getPostByIdSuccess: (state, action) => {
       state.isFetching = false;
-      state.posts = action.payload;
+      state.post = action.payload;
       state.error = false; // Reset error to false on successful find
     },
     getPostsFailure: (state) => {

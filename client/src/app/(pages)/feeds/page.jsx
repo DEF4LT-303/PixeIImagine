@@ -2,11 +2,12 @@
 
 import { getPosts } from '@/app/api/redux/apiCalls';
 import Card from '@/app/components/Card';
+import Link from 'next/link';
 import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
 const Feeds = () => {
-  const loading = false;
+  const loading = useSelector((state) => state.posts?.isFetching);
 
   const posts = useSelector((state) => state.posts?.posts);
 
@@ -103,7 +104,9 @@ const Feeds = () => {
       {posts ? (
         <div className='flex flex-col lg:flex-row flex-wrap items-center justify-center py-10 gap-10 mx-5'>
           {posts.map((feed, index) => (
-            <Card key={index} feed={feed} />
+            <Link href={`/feeds/${feed._id}`} key={index}>
+              <Card key={index} feed={feed} />
+            </Link>
           ))}
         </div>
       ) : (

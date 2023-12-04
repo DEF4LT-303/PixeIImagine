@@ -98,7 +98,7 @@ const EditProfileModal = ({ isOpen, handleCloseModal }) => {
             >
               <span className='mx-2'>Save</span>
               <svg
-                class='w-4 h-4 '
+                className='w-4 h-4 '
                 aria-hidden='true'
                 xmlns='http://www.w3.org/2000/svg'
                 fill='none'
