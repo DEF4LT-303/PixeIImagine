@@ -6,7 +6,10 @@ import {
   loginSuccess,
   registrationFailure,
   registrationStart,
-  registrationSuccess
+  registrationSuccess,
+  updateUserFailure,
+  updateUserStart,
+  updateUserSuccess
 } from './userRedux';
 
 import {
@@ -51,6 +54,16 @@ export const register = async (dispatch, user) => {
   }
 };
 
+export const updateUser = async (id, user, dispatch) => {
+  dispatch(updateUserStart());
+  try {
+    const res = await userRequest().put(`/users/${id}`, user);
+    dispatch(updateUserSuccess(res.data));
+  } catch (error) {
+    dispatch(updateUserFailure());
+  }
+};
+
 // *Post API Calls*
 
 export const getPosts = async (dispatch) => {
@@ -84,6 +97,15 @@ export const updatePost = async (id, post, dispatch) => {
 };
 
 // *Prompt API Calls*
+
+export const getPromptsByUser = async () => {
+  try {
+    const res = await publicRequest().get(`/prompts/user/${id}`);
+    return res.data;
+  } catch (error) {
+    console.log(error);
+  }
+};
 
 export const createPrompt = async (prompt) => {
   try {

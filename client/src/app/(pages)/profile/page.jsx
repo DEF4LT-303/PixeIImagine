@@ -6,25 +6,10 @@ import { useRouter } from 'next/navigation';
 import { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
-// const images = [
-//   'https://source.unsplash.com/random/200x200/?0',
-//   'https://source.unsplash.com/random/200x200/?1',
-//   'https://source.unsplash.com/random/200x200/?2',
-//   'https://source.unsplash.com/random/200x200/?3',
-//   'https://source.unsplash.com/random/200x200/?4',
-//   'https://source.unsplash.com/random/200x200/?5',
-//   'https://source.unsplash.com/random/200x200/?6',
-//   'https://source.unsplash.com/random/200x200/?7',
-//   'https://source.unsplash.com/random/200x200/?8',
-//   'https://source.unsplash.com/random/200x200/?9',
-//   'https://source.unsplash.com/random/200x200/?10',
-//   'https://source.unsplash.com/random/200x200/?11'
-// ];
-
 const Profile = () => {
   const user = useSelector((state) => state.user.currentUser?.user);
   const prompts = user?.prompts;
-  const loading = false;
+  const loading = useSelector((state) => state.user.isFetching);
 
   const dispatch = useDispatch();
   const router = useRouter();
@@ -71,6 +56,7 @@ const Profile = () => {
           <EditProfileModal
             isOpen={openModal}
             handleCloseModal={handleCloseModal}
+            data={user}
           />
         )}
         <img

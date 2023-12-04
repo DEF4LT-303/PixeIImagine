@@ -43,3 +43,8 @@ def delete_prompt(_id):
         return jsonify({'success': True})
 
     return jsonify({'error': 'Invalid request method'}), 405
+
+
+def get_prompts_by_user_id(user_id):
+    prompts = PromptModel.get_prompts_by_user_id(user_id)
+    return jsonify(prompts)

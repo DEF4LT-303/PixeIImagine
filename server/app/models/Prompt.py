@@ -33,3 +33,9 @@ class PromptModel:
   @staticmethod
   def delete_prompt(_id):
     mongo.db.prompts.delete_one({'_id': ObjectId(_id)})
+
+  @staticmethod
+  def get_prompts_by_user_id(user_id):
+      prompts = mongo.db.prompts.find({'author._id': user_id})
+      return [{key: str(value) if key == '_id' else value for key, value in prompt.items()} for prompt in prompts]
+
