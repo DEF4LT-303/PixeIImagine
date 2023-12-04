@@ -13,7 +13,10 @@ import {
   getPostByIdSuccess,
   getPostsFailure,
   getPostsStart,
-  getPostsSuccess
+  getPostsSuccess,
+  updatePostFailure,
+  updatePostStart,
+  updatePostSuccess
 } from './postRedux';
 
 // *User API Calls*
@@ -71,12 +74,12 @@ export const getPostById = async (id, dispatch) => {
 };
 
 export const updatePost = async (id, post, dispatch) => {
-  dispatch(getPostsStart());
+  dispatch(updatePostStart());
   try {
     const res = await userRequest().put(`/posts/${id}`, post);
-    dispatch(getPostByIdSuccess(res.data));
+    dispatch(updatePostSuccess(res.data));
   } catch (error) {
-    dispatch(getPostsFailure());
+    dispatch(updatePostFailure());
   }
 };
 

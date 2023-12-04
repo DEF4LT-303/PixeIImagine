@@ -30,7 +30,7 @@ class PostModel:
       'tags': tags,
       'author': author,
       'image': image,
-      'likes': 0,
+      'likes': [],
       'comments': [],
       'createdAt': current_time
     }

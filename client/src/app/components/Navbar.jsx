@@ -59,7 +59,7 @@ const Navbar = () => {
                     <Link href='/profile'>
                       <div className='avatar'>
                         <div className='w-10 rounded-full ring ring-primary ring-offset-base-100 ring-offset-2'>
-                          <img src={user.user?.avatar || 'default.jpg'} />
+                          <img src={user.user?.avatar || '/default.jpg'} />
                         </div>
                       </div>
                     </Link>
