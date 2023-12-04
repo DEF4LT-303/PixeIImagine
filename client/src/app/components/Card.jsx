@@ -1,33 +1,10 @@
 const Card = ({ feed }) => {
-  console.log(feed);
   return (
-    // <section className='w-full p-4 lg:p-8 '>
-    //   <div className='container mx-auto space-y-12'>
-    //     <div className='flex flex-col lg:flex-row overflow-hidden rounded-md shadow-sm '>
-    //       <img
-    //         src='https://source.unsplash.com/640x480/?1'
-    //         alt=''
-    //         className='h-80 dark:bg-gray-500 aspect-video'
-    //       />
-    //       <div className='flex flex-col justify-center flex-1 p-6 bg-slate-100 dark:bg-base-300'>
-    //         <span className='text-xs uppercase dark:text-gray-400'>
-    //           AI Generated
-    //         </span>
-    //         <h3 className='text-3xl font-bold'>{feed.title}</h3>
-    //         <p className='my-6 dark:text-gray-400'>{feed.desc}</p>
-    //         <button type='button' className='self-start'>
-    //           View Details
-    //         </button>
-    //       </div>
-    //     </div>
-    //   </div>
-    // </section>
-
     <div className='flex flex-col max-w-lg p-6 space-y-6 overflow-hidden rounded-lg shadow-md bg-slate-100 dark:bg-base-300 dark:text-gray-100'>
       <div className='flex space-x-4'>
         <img
           alt=''
-          src={feed.author.avatar}
+          src={feed.author.avatar || '/default.jpg'}
           className='object-cover w-12 h-12 rounded-full shadow dark:bg-gray-500'
         />
         <div className='flex flex-col space-y-1'>
@@ -36,9 +13,15 @@ const Card = ({ feed }) => {
             href='#'
             className='text-sm font-semibold'
           >
-            {feed.author.name}
+            {feed.author.firstName} {feed.author.lastName}
           </a>
-          <span className='text-xs dark:text-gray-400'>{feed.createdAt}</span>
+          <span className='text-xs dark:text-gray-400'>
+            {new Date(feed.createdAt).toLocaleDateString('en-US', {
+              year: 'numeric',
+              month: 'short',
+              day: 'numeric'
+            })}
+          </span>
         </div>
       </div>
       <div>

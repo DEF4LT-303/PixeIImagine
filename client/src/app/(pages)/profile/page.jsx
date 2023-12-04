@@ -2,6 +2,7 @@
 
 import EditProfileModal from '@/app/components/EditModal';
 import Gallery from '@/app/components/Gallery';
+import { useRouter } from 'next/navigation';
 import { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
@@ -26,6 +27,7 @@ const Profile = () => {
   const loading = false;
 
   const dispatch = useDispatch();
+  const router = useRouter();
 
   const [openModal, setOpenModal] = useState(false);
 
@@ -36,6 +38,10 @@ const Profile = () => {
   const handleCloseModal = () => {
     setOpenModal(false);
   };
+
+  if (!user) {
+    router.push('/');
+  }
 
   if (loading) {
     return (

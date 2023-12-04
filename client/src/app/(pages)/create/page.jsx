@@ -1,7 +1,9 @@
 'use client';
 
 import { createPrompt } from '@/app/api/redux/apiCalls';
+import { useRouter } from 'next/navigation';
 import { useState } from 'react';
+import { useSelector } from 'react-redux';
 
 async function query(data, model) {
   if (model === 'Inkpunk-Diffusion') {
@@ -24,6 +26,14 @@ const Create = () => {
   const [title, setTitle] = useState('');
   const [generatedImage, setGeneratedImage] = useState(null);
   const [selectedModel, setSelectedModel] = useState('Inkpunk-Diffusion');
+
+  const user = useSelector((state) => state.user.currentUser?.user);
+
+  const router = useRouter();
+
+  if (!user) {
+    router.push('/');
+  }
 
   const handleCreate = async () => {
     if (!title) {

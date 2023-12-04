@@ -3,16 +3,16 @@ import { createSlice } from '@reduxjs/toolkit';
 const postlice = createSlice({
   name: 'posts',
   initialState: {
-    post: [],
+    posts: [],
     isFetching: false,
     error: true
   },
   reducers: {
-    createPosttart: (state) => {
+    createPostStart: (state) => {
       state.isFetching = true;
       state.error = false; // Reset error to false when starting login
     },
-    createPostuccess: (state) => {
+    createPostSuccess: (state) => {
       state.isFetching = false;
       state.error = false; // Reset error to false on successful login
     },
@@ -20,11 +20,11 @@ const postlice = createSlice({
       state.isFetching = false;
       state.error = true;
     },
-    updatePosttart: (state) => {
+    updatePostStart: (state) => {
       state.isFetching = true;
       state.error = false; // Reset error to false when starting update
     },
-    updatePostuccess: (state, action) => {
+    updatePostSuccess: (state, action) => {
       state.list = state.list.map((post) => {
         if (post.id === action.payload.id) {
           return action.payload;
@@ -37,21 +37,21 @@ const postlice = createSlice({
       state.isFetching = false;
       state.error = true;
     },
-    getPosttart: (state) => {
+    getPostsStart: (state) => {
       state.isFetching = true;
       state.error = false; // Reset error to false when starting find
     },
-    getPostuccess: (state, action) => {
+    getPostsSuccess: (state, action) => {
       state.isFetching = false;
-      state.post = action.payload;
+      state.posts = action.payload;
       state.error = false; // Reset error to false on successful find
     },
     getPostByIdSuccess: (state, action) => {
       state.isFetching = false;
-      state.post = action.payload;
+      state.posts = action.payload;
       state.error = false; // Reset error to false on successful find
     },
-    getPostFailure: (state) => {
+    getPostsFailure: (state) => {
       state.isFetching = false;
       state.error = true;
     },
@@ -61,7 +61,7 @@ const postlice = createSlice({
     },
     deletePostuccess: (state, action) => {
       const removedIds = action.payload;
-      state.post = state.post.filter((post) => {
+      state.posts = state.post.filter((post) => {
         return !removedIds.includes(post.id);
       });
     },
@@ -73,15 +73,15 @@ const postlice = createSlice({
 });
 
 export const {
-  updatePosttart,
-  updatePostuccess,
+  updatePostStart,
+  updatePostSuccess,
   updatePostFailure,
-  getPosttart,
-  getPostuccess,
+  getPostsStart,
+  getPostsSuccess,
   createPostFailure,
-  createPosttart,
-  createPostuccess,
-  getPostFailure,
+  createPostStart,
+  createPostSuccess,
+  getPostsFailure,
   getPostByIdSuccess,
   deletePosttart,
   deletePostuccess,

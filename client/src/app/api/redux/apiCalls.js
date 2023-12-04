@@ -9,11 +9,17 @@ import {
   registrationSuccess
 } from './userRedux';
 
+import {
+  getPostByIdSuccess,
+  getPostsFailure,
+  getPostsStart,
+  getPostsSuccess
+} from './postRedux';
+
 // *User API Calls*
 
 export const login = async (dispatch, userCredentials) => {
   dispatch(loginStart());
-  console.log(userCredentials);
   try {
     const res = await publicRequest.post('/users/login', userCredentials);
     dispatch(loginSuccess(res.data));
@@ -28,7 +34,6 @@ export const login = async (dispatch, userCredentials) => {
 
 export const register = async (dispatch, user) => {
   dispatch(registrationStart());
-  console.log(user);
   try {
     const res = await publicRequest.post('/users/register', user);
     setTimeout(() => {
@@ -45,12 +50,33 @@ export const register = async (dispatch, user) => {
 
 // *Post API Calls*
 
-export const getPosts = async () => {
+export const getPosts = async (dispatch) => {
+  dispatch(getPostsStart());
   try {
     const res = await publicRequest.get('/posts');
-    return res.data;
+    dispatch(getPostsSuccess(res.data));
   } catch (error) {
-    console.log(error);
+    dispatch(getPostsFailure());
+  }
+};
+
+export const getPostById = async (id, dispatch) => {
+  dispatch(getPostsStart());
+  try {
+    const res = await publicRequest.get(`/posts/${id}`);
+    dispatch(getPostByIdSuccess(res.data));
+  } catch (error) {
+    dispatch(getPostsFailure());
+  }
+};
+
+export const updatePost = async (id, post, dispatch) => {
+  dispatch(getPostsStart());
+  try {
+    const res = await userRequest().put(`/posts/${id}`, post);
+    dispatch(getPostByIdSuccess(res.data));
+  } catch (error) {
+    dispatch(getPostsFailure());
   }
 };
 
