@@ -1,11 +1,12 @@
-import { updatePost } from '@/app/api/redux/apiCalls';
+import { createPost } from '@/app/api/redux/apiCalls';
 import { useState } from 'react';
 import { useDispatch } from 'react-redux';
 
-const EditPostModal = ({ isOpen, handleCloseModal, data }) => {
+const CreatePostModal = ({ isOpen, handleCloseModal, data }) => {
   const [title, setTitle] = useState(data?.title || '');
   const [description, setDescription] = useState(data?.description || '');
-  // const [avatar, setAvatar] = useState(data?.about || '');
+  const [prompt, setPrompt] = useState(data?.prompt || '');
+  const [image, setImage] = useState(data?.image || '');
 
   const dispatch = useDispatch();
 
@@ -18,9 +19,11 @@ const EditPostModal = ({ isOpen, handleCloseModal, data }) => {
   const handleSave = async () => {
     const post = {
       title,
-      description
+      description,
+      prompt,
+      image
     };
-    await updatePost(data._id, post, dispatch);
+    await createPost(post, dispatch);
     handleCloseModal();
   };
 
@@ -74,6 +77,20 @@ const EditPostModal = ({ isOpen, handleCloseModal, data }) => {
                 placeholder='Description'
                 value={description}
                 onChange={(e) => setDescription(e.target.value)}
+                className='block w-full px-4 py-2 mt-2 text-gray-700 placeholder-gray-400  border border-gray-200 rounded-lg dark:placeholder-gray-600 bg-inherit dark:text-gray-300 dark:border-gray-700 focus:border-blue-400 dark:focus:border-blue-400 focus:ring-blue-400 focus:outline-none focus:ring focus:ring-opacity-40'
+              />
+            </div>
+
+            <div>
+              <label className='block mt-5 mb-2 text-sm text-gray-600 dark:text-gray-200'>
+                Prompt
+              </label>
+              <input
+                type='text'
+                name='prompt'
+                id='prompt'
+                value={prompt}
+                disabled
                 className='block w-full px-4 py-2 mt-2 text-gray-700 placeholder-gray-400  border border-gray-200 rounded-lg dark:placeholder-gray-600 bg-inherit dark:text-gray-300 dark:border-gray-700 focus:border-blue-400 dark:focus:border-blue-400 focus:ring-blue-400 focus:outline-none focus:ring focus:ring-opacity-40'
               />
             </div>
@@ -131,4 +148,4 @@ const EditPostModal = ({ isOpen, handleCloseModal, data }) => {
   );
 };
 
-export default EditPostModal;
+export default CreatePostModal;

@@ -13,6 +13,9 @@ import {
 } from './userRedux';
 
 import {
+  createPostFailure,
+  createPostStart,
+  createPostSuccess,
   deletePostFailure,
   deletePostStart,
   deletePostSuccess,
@@ -68,6 +71,16 @@ export const updateUser = async (id, user, dispatch) => {
 };
 
 // *Post API Calls*
+
+export const createPost = async (post, dispatch) => {
+  dispatch(createPostStart());
+  try {
+    const res = await userRequest().post('/posts', post);
+    dispatch(createPostSuccess(res.data));
+  } catch (error) {
+    dispatch(createPostFailure());
+  }
+};
 
 export const getPosts = async (dispatch) => {
   dispatch(getPostsStart());
