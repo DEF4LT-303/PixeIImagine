@@ -6,7 +6,6 @@ import {
   loginSuccess,
   registrationFailure,
   registrationStart,
-  registrationSuccess,
   updateUserFailure,
   updateUserStart,
   updateUserSuccess
@@ -48,9 +47,9 @@ export const register = async (dispatch, user) => {
   dispatch(registrationStart());
   try {
     const res = await publicRequest.post('/users/register', user);
-    setTimeout(() => {
-      dispatch(registrationSuccess());
-    }, 3000);
+    // setTimeout(() => {
+    //   dispatch(registrationSuccess());
+    // }, 3000);
   } catch (error) {
     if (error.response && error.response.status === 409) {
       throw new Error('Email already exists'); // Throw an error for invalid email or password
