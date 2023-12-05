@@ -5,7 +5,7 @@ import { useDispatch } from 'react-redux';
 const EditProfileModal = ({ isOpen, handleCloseModal, data }) => {
   const [firstName, setFirstName] = useState(data?.firstName || '');
   const [lastName, setLastName] = useState(data?.lastName || '');
-  const [avatar, setAvatar] = useState(data?.about || '');
+  const [avatar, setAvatar] = useState(data?.avatar || '');
 
   const dispatch = useDispatch();
 
