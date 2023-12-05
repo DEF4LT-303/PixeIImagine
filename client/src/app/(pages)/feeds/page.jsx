@@ -2,7 +2,6 @@
 
 import { getPosts } from '@/app/api/redux/apiCalls';
 import Card from '@/app/components/Card';
-import Link from 'next/link';
 import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
@@ -19,68 +18,68 @@ const Feeds = () => {
 
   if (loading) {
     return (
-      <section class='bg-white dark:bg-base-100'>
-        <div class='container px-6 py-10 mx-auto animate-pulse'>
-          <h1 class='w-48 h-2 mx-auto bg-gray-200 rounded-lg dark:bg-gray-700'></h1>
+      <section className='bg-white dark:bg-base-100'>
+        <div className='container px-6 py-10 mx-auto animate-pulse'>
+          <h1 className='w-48 h-2 mx-auto bg-gray-200 rounded-lg dark:bg-gray-700'></h1>
 
-          <p class='w-64 h-2 mx-auto mt-4 bg-gray-200 rounded-lg dark:bg-gray-700'></p>
-          <p class='w-64 h-2 mx-auto mt-4 bg-gray-200 rounded-lg sm:w-80 dark:bg-gray-700'></p>
+          <p className='w-64 h-2 mx-auto mt-4 bg-gray-200 rounded-lg dark:bg-gray-700'></p>
+          <p className='w-64 h-2 mx-auto mt-4 bg-gray-200 rounded-lg sm:w-80 dark:bg-gray-700'></p>
 
-          <div class='grid grid-cols-1 gap-8 mt-8 xl:mt-12 xl:gap-12 sm:grid-cols-2 xl:grid-cols-4 lg:grid-cols-3'>
-            <div class='w-full '>
-              <div class='w-full h-64 bg-gray-300 rounded-lg dark:bg-gray-600'></div>
+          <div className='grid grid-cols-1 gap-8 mt-8 xl:mt-12 xl:gap-12 sm:grid-cols-2 xl:grid-cols-4 lg:grid-cols-3'>
+            <div className='w-full '>
+              <div className='w-full h-64 bg-gray-300 rounded-lg dark:bg-gray-600'></div>
 
-              <h1 class='w-56 h-2 mt-4 bg-gray-200 rounded-lg dark:bg-gray-700'></h1>
-              <p class='w-24 h-2 mt-4 bg-gray-200 rounded-lg dark:bg-gray-700'></p>
+              <h1 className='w-56 h-2 mt-4 bg-gray-200 rounded-lg dark:bg-gray-700'></h1>
+              <p className='w-24 h-2 mt-4 bg-gray-200 rounded-lg dark:bg-gray-700'></p>
             </div>
 
-            <div class='w-full '>
-              <div class='w-full h-64 bg-gray-300 rounded-lg dark:bg-gray-600'></div>
+            <div className='w-full '>
+              <div className='w-full h-64 bg-gray-300 rounded-lg dark:bg-gray-600'></div>
 
-              <h1 class='w-56 h-2 mt-4 bg-gray-200 rounded-lg dark:bg-gray-700'></h1>
-              <p class='w-24 h-2 mt-4 bg-gray-200 rounded-lg dark:bg-gray-700'></p>
+              <h1 className='w-56 h-2 mt-4 bg-gray-200 rounded-lg dark:bg-gray-700'></h1>
+              <p className='w-24 h-2 mt-4 bg-gray-200 rounded-lg dark:bg-gray-700'></p>
             </div>
 
-            <div class='w-full '>
-              <div class='w-full h-64 bg-gray-300 rounded-lg dark:bg-gray-600'></div>
+            <div className='w-full '>
+              <div className='w-full h-64 bg-gray-300 rounded-lg dark:bg-gray-600'></div>
 
-              <h1 class='w-56 h-2 mt-4 bg-gray-200 rounded-lg dark:bg-gray-700'></h1>
-              <p class='w-24 h-2 mt-4 bg-gray-200 rounded-lg dark:bg-gray-700'></p>
+              <h1 className='w-56 h-2 mt-4 bg-gray-200 rounded-lg dark:bg-gray-700'></h1>
+              <p className='w-24 h-2 mt-4 bg-gray-200 rounded-lg dark:bg-gray-700'></p>
             </div>
 
-            <div class='w-full '>
-              <div class='w-full h-64 bg-gray-300 rounded-lg dark:bg-gray-600'></div>
+            <div className='w-full '>
+              <div className='w-full h-64 bg-gray-300 rounded-lg dark:bg-gray-600'></div>
 
-              <h1 class='w-56 h-2 mt-4 bg-gray-200 rounded-lg dark:bg-gray-700'></h1>
-              <p class='w-24 h-2 mt-4 bg-gray-200 rounded-lg dark:bg-gray-700'></p>
+              <h1 className='w-56 h-2 mt-4 bg-gray-200 rounded-lg dark:bg-gray-700'></h1>
+              <p className='w-24 h-2 mt-4 bg-gray-200 rounded-lg dark:bg-gray-700'></p>
             </div>
 
-            <div class='w-full '>
-              <div class='w-full h-64 bg-gray-300 rounded-lg dark:bg-gray-600'></div>
+            <div className='w-full '>
+              <div className='w-full h-64 bg-gray-300 rounded-lg dark:bg-gray-600'></div>
 
-              <h1 class='w-56 h-2 mt-4 bg-gray-200 rounded-lg dark:bg-gray-700'></h1>
-              <p class='w-24 h-2 mt-4 bg-gray-200 rounded-lg dark:bg-gray-700'></p>
+              <h1 className='w-56 h-2 mt-4 bg-gray-200 rounded-lg dark:bg-gray-700'></h1>
+              <p className='w-24 h-2 mt-4 bg-gray-200 rounded-lg dark:bg-gray-700'></p>
             </div>
 
-            <div class='w-full '>
-              <div class='w-full h-64 bg-gray-300 rounded-lg dark:bg-gray-600'></div>
+            <div className='w-full '>
+              <div className='w-full h-64 bg-gray-300 rounded-lg dark:bg-gray-600'></div>
 
-              <h1 class='w-56 h-2 mt-4 bg-gray-200 rounded-lg dark:bg-gray-700'></h1>
-              <p class='w-24 h-2 mt-4 bg-gray-200 rounded-lg dark:bg-gray-700'></p>
+              <h1 className='w-56 h-2 mt-4 bg-gray-200 rounded-lg dark:bg-gray-700'></h1>
+              <p className='w-24 h-2 mt-4 bg-gray-200 rounded-lg dark:bg-gray-700'></p>
             </div>
 
-            <div class='w-full '>
-              <div class='w-full h-64 bg-gray-300 rounded-lg dark:bg-gray-600'></div>
+            <div className='w-full '>
+              <div className='w-full h-64 bg-gray-300 rounded-lg dark:bg-gray-600'></div>
 
-              <h1 class='w-56 h-2 mt-4 bg-gray-200 rounded-lg dark:bg-gray-700'></h1>
-              <p class='w-24 h-2 mt-4 bg-gray-200 rounded-lg dark:bg-gray-700'></p>
+              <h1 className='w-56 h-2 mt-4 bg-gray-200 rounded-lg dark:bg-gray-700'></h1>
+              <p className='w-24 h-2 mt-4 bg-gray-200 rounded-lg dark:bg-gray-700'></p>
             </div>
 
-            <div class='w-full '>
-              <div class='w-full h-64 bg-gray-300 rounded-lg dark:bg-gray-600'></div>
+            <div className='w-full '>
+              <div className='w-full h-64 bg-gray-300 rounded-lg dark:bg-gray-600'></div>
 
-              <h1 class='w-56 h-2 mt-4 bg-gray-200 rounded-lg dark:bg-gray-700'></h1>
-              <p class='w-24 h-2 mt-4 bg-gray-200 rounded-lg dark:bg-gray-700'></p>
+              <h1 className='w-56 h-2 mt-4 bg-gray-200 rounded-lg dark:bg-gray-700'></h1>
+              <p className='w-24 h-2 mt-4 bg-gray-200 rounded-lg dark:bg-gray-700'></p>
             </div>
           </div>
         </div>
@@ -104,9 +103,7 @@ const Feeds = () => {
       {posts ? (
         <div className='flex flex-col lg:flex-row flex-wrap items-center justify-center py-10 gap-10 mx-5'>
           {posts.map((feed, index) => (
-            <Link href={`/feeds/${feed._id}`} key={index}>
-              <Card key={index} feed={feed} />
-            </Link>
+            <Card key={index} feed={feed} />
           ))}
         </div>
       ) : (
