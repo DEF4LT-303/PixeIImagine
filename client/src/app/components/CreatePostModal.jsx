@@ -47,7 +47,7 @@ const CreatePostModal = ({ isOpen, handleCloseModal, data }) => {
             className='text-lg font-medium leading-6 text-gray-800 capitalize dark:text-white'
             id='modal-title'
           >
-            Edit Post
+            Create Post
           </h3>
 
           <form className='mt-6'>
