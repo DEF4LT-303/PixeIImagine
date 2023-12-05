@@ -2,6 +2,7 @@
 
 import { deletePost, getPostById, updatePost } from '@/app/api/redux/apiCalls';
 import EditPostModal from '@/app/components/EditPostModal';
+import { useRouter } from 'next/navigation';
 import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
@@ -10,6 +11,7 @@ const Post = () => {
   const postId = path.split('/')[2];
 
   const dispatch = useDispatch();
+  const router = useRouter();
 
   useEffect(() => {
     getPostById(postId, dispatch);
@@ -67,7 +69,7 @@ const Post = () => {
   const handleDelete = async () => {
     try {
       await deletePost(feed._id, dispatch);
-      window.location.replace('/feeds');
+      router.push('/feeds');
     } catch (error) {
       console.log(error);
     }
@@ -173,9 +175,7 @@ const Post = () => {
               </span>
               <span className='text-lg'>
                 <p className='inline-block pr-2 text-gray-400'>Prompt:</p>
-                <p className='inline-block dark:text-blue-300'>
-                  AI, orange, glasses, desert
-                </p>
+                <p className='inline-block dark:text-blue-300'>{feed.prompt}</p>
               </span>
             </div>
           </div>
