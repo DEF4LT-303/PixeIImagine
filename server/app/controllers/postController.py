@@ -59,8 +59,12 @@ def delete_post(_id):
         if not post:
             return jsonify({'error': 'Post not found'}), 404
         
+        user_posts = UserModel.get_user(post['author']['_id'])['posts']
+        if user_posts:
+            user_posts.remove(post['_id'])
+        
         PostModel.delete_post(_id)
-        UserModel.update_user(post['author']['_id'], posts=[post for post in post['author']['posts'] if post['_id'] != _id])
+        UserModel.update_user(post['author']['_id'], posts=user_posts)
         return jsonify({'success': True})
 
     return jsonify({'error': 'Invalid request method'}), 405
