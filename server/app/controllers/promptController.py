@@ -25,7 +25,7 @@ def create_prompt():
         author = UserModel.get_user((get_jwt_identity()['user_id']))
         
         prompt_id = PromptModel.create_prompt(prompt, author, image)
-        UserModel.update_user(author['_id'], prompts=author['prompts'] + [PromptModel.get_prompt(prompt_id)])
+        UserModel.update_user(author['_id'], prompts=author['prompts'] + [prompt_id])
 
         return jsonify(PromptModel.get_prompt(prompt_id)), 200
     

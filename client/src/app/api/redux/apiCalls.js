@@ -123,9 +123,9 @@ export const deletePost = async (id, dispatch) => {
 
 // *Prompt API Calls*
 
-export const getPromptsByUser = async () => {
+export const getPromptsByUser = async (id) => {
   try {
-    const res = await publicRequest().get(`/prompts/user/${id}`);
+    const res = await publicRequest.get(`/prompts/user/${id}`);
     return res.data;
   } catch (error) {
     console.log(error);
@@ -134,7 +134,7 @@ export const getPromptsByUser = async () => {
 
 export const createPrompt = async (prompt) => {
   try {
-    const res = await userRequest().post('/prompts', prompt);
+    const res = await userRequest().post('/prompts/', prompt);
     return res.data;
   } catch (error) {
     console.log(error);

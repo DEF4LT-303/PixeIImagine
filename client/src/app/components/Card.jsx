@@ -4,7 +4,7 @@ const Card = ({ feed }) => {
   return (
     <>
       <Link href={`/feeds/${feed._id}`}>
-        <div className='flex flex-col max-w-lg p-6 space-y-6 overflow-hidden rounded-lg shadow-md bg-slate-100 dark:bg-base-300 dark:text-gray-100'>
+        <div className='flex flex-col w-screen max-w-lg p-6 space-y-6 overflow-hidden rounded-lg shadow-md bg-slate-100 dark:bg-base-300 dark:text-gray-100'>
           <div className='flex space-x-4'>
             <img
               alt=''

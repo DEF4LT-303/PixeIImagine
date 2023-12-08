@@ -1,18 +1,35 @@
 'use client';
 
+import { getPromptsByUser } from '@/app/api/redux/apiCalls';
 import EditProfileModal from '@/app/components/EditModal';
 import Gallery from '@/app/components/Gallery';
 import { useRouter } from 'next/navigation';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
 const Profile = () => {
   const user = useSelector((state) => state.user.currentUser?.user);
-  const prompts = user?.prompts;
   const loading = useSelector((state) => state.user.isFetching);
+
+  const [prompts, setPrompts] = useState([]);
 
   const dispatch = useDispatch();
   const router = useRouter();
+
+  useEffect(() => {
+    const fetchPrompts = async () => {
+      if (user) {
+        try {
+          const userPrompts = await getPromptsByUser(user._id);
+          setPrompts(userPrompts);
+        } catch (error) {
+          console.error('Error fetching prompts:', error);
+        }
+      }
+    };
+
+    fetchPrompts();
+  }, [user]);
 
   const [openModal, setOpenModal] = useState(false);
 
