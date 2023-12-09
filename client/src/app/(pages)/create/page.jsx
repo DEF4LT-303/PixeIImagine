@@ -1,30 +1,39 @@
 'use client';
 
 import { createPrompt } from '@/app/api/redux/apiCalls';
+import { imageDB } from '@/app/config/config';
+import { getDownloadURL, ref, uploadBytes } from 'firebase/storage';
 import { useRouter } from 'next/navigation';
 import { useState } from 'react';
 import { useSelector } from 'react-redux';
+import { v4 } from 'uuid';
 
 async function query(data, model) {
+  let apiURL = '';
   if (model === 'Inkpunk-Diffusion') {
-    const response = await fetch(
-      'https://api-inference.huggingface.co/models/Envvi/Inkpunk-Diffusion',
-      {
-        headers: {
-          Authorization: 'Bearer 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'
-        },
-        method: 'POST',
-        body: JSON.stringify(data)
-      }
-    );
-    const result = await response.blob();
-    return URL.createObjectURL(result);
+    apiURL =
+      'https://api-inference.huggingface.co/models/Envvi/Inkpunk-Diffusion';
+  } else if (model === 'ANIMAGINE') {
+    apiURL =
+      'https://api-inference.huggingface.co/models/Linaqruf/animagine-xl-2.0';
   }
+
+  const response = await fetch(apiURL, {
+    headers: {
+      Authorization: `Bearer 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`
+    },
+    method: 'POST',
+    body: JSON.stringify(data)
+  });
+  const resultBlob = await response.blob();
+  const resultURL = URL.createObjectURL(resultBlob);
+  return { blob: resultBlob, imageUrl: resultURL };
 }
 
 const Create = () => {
   const [title, setTitle] = useState('');
   const [generatedImage, setGeneratedImage] = useState(null);
+  const [generatedBlob, setGeneratedBlob] = useState(null);
   const [selectedModel, setSelectedModel] = useState('Inkpunk-Diffusion');
 
   const user = useSelector((state) => state.user.currentUser?.user);
@@ -47,11 +56,12 @@ const Create = () => {
     }
 
     try {
-      const imageUrl = await query(
+      const { blob, imageUrl } = await query(
         { inputs: `${title}, nvinkpunk` },
         selectedModel
       );
       setGeneratedImage(imageUrl);
+      setGeneratedBlob(blob);
     } catch (error) {
       console.error('Error generating image:', error);
     }
@@ -62,41 +72,34 @@ const Create = () => {
     setTitle('');
   };
 
-  const handleSave = () => {
+  const handleSave = async () => {
     if (!generatedImage) {
       alert('No image to save');
       return;
     }
 
-    // Convert the generated image to base64
-    const canvas = document.createElement('canvas');
-    const ctx = canvas.getContext('2d');
-    const img = new Image();
-    img.src = generatedImage;
+    const imageRef = ref(imageDB, `images/${v4()}`);
+    await uploadBytes(imageRef, generatedBlob);
 
-    img.onload = () => {
-      canvas.width = img.width;
-      canvas.height = img.height;
-      ctx.drawImage(img, 0, 0, img.width, img.height);
+    // Get the download URL of the uploaded image
+    const imageUrl = await getDownloadURL(imageRef);
 
-      // Convert canvas to base64
-      const base64Image = canvas.toDataURL('image/png');
-
-      // Call the API to save the prompt with the base64 image
-      const promptData = {
-        prompt: title,
-        image: base64Image
-      };
-
-      createPrompt(promptData)
-        .then((res) => {
-          console.log('Prompt saved successfully:', res);
-          handleClear();
-        })
-        .catch((error) => {
-          console.error('Error saving prompt:', error);
-        });
+    // Call the API to save the prompt with the base64 image
+    const promptData = {
+      prompt: title,
+      image: imageUrl
     };
+
+    // console.log('Prompt data:', promptData);
+
+    createPrompt(promptData)
+      .then((res) => {
+        console.log('Prompt saved successfully:', res);
+        handleClear();
+      })
+      .catch((error) => {
+        console.error('Error saving prompt:', error);
+      });
   };
 
   return (
@@ -114,7 +117,7 @@ const Create = () => {
           onChange={(e) => setSelectedModel(e.target.value)}
         >
           <option value='Inkpunk-Diffusion'>Inkpunk Diffusion</option>
-          <option value='Inkpunk-CLIP'>Inkpunk CLIP</option>
+          <option value='Inkpunk-CLIP'>ANIMAGINE</option>
           <option value='openjourney'>OpenJourney</option>
         </select>
 
