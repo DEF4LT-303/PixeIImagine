@@ -10,20 +10,23 @@ import { v4 } from 'uuid';
 
 async function query(data, model) {
   let apiURL = '';
+  let inputs = data.inputs;
   if (model === 'Inkpunk-Diffusion') {
     apiURL =
       'https://api-inference.huggingface.co/models/Envvi/Inkpunk-Diffusion';
-  } else if (model === 'ANIMAGINE') {
+    inputs = `${data.inputs}, nvinkpunk`;
+  } else if (model === 'animagine') {
     apiURL =
       'https://api-inference.huggingface.co/models/Linaqruf/animagine-xl-2.0';
+    inputs = `${data.inputs}, best quality, masterpiece`;
   }
 
   const response = await fetch(apiURL, {
     headers: {
-      Authorization: `Bearer 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`
+      Authorization: `Bearer ${process.env.NEXT_PUBLIC_HUGGING_FACE_API_KEY}`
     },
     method: 'POST',
-    body: JSON.stringify(data)
+    body: JSON.stringify(inputs)
   });
   const resultBlob = await response.blob();
   const resultURL = URL.createObjectURL(resultBlob);
@@ -34,6 +37,7 @@ const Create = () => {
   const [title, setTitle] = useState('');
   const [generatedImage, setGeneratedImage] = useState(null);
   const [generatedBlob, setGeneratedBlob] = useState(null);
+  const [loading, setLoading] = useState(false);
   const [selectedModel, setSelectedModel] = useState('Inkpunk-Diffusion');
 
   const user = useSelector((state) => state.user.currentUser?.user);
@@ -56,12 +60,11 @@ const Create = () => {
     }
 
     try {
-      const { blob, imageUrl } = await query(
-        { inputs: `${title}, nvinkpunk` },
-        selectedModel
-      );
+      setLoading(true);
+      const { blob, imageUrl } = await query({ inputs: title }, selectedModel);
       setGeneratedImage(imageUrl);
       setGeneratedBlob(blob);
+      setLoading(false);
     } catch (error) {
       console.error('Error generating image:', error);
     }
@@ -117,7 +120,7 @@ const Create = () => {
           onChange={(e) => setSelectedModel(e.target.value)}
         >
           <option value='Inkpunk-Diffusion'>Inkpunk Diffusion</option>
-          <option value='Inkpunk-CLIP'>ANIMAGINE</option>
+          <option value='animagine'>ANIMAGINE</option>
           <option value='openjourney'>OpenJourney</option>
         </select>
 
@@ -155,9 +158,14 @@ const Create = () => {
             </>
           )}
 
-          <div className='btn btn-primary w-1/4' onClick={handleCreate}>
-            {generatedImage ? 'Regenerate' : 'Generate'}
-          </div>
+          {!loading && (
+            <div className='btn btn-primary w-1/4' onClick={handleCreate}>
+              {generatedImage ? 'Regenerate' : 'Generate'}
+            </div>
+          )}
+          {loading && (
+            <span className='loading loading-infinity loading-lg'></span>
+          )}
         </div>
 
         {generatedImage && (
