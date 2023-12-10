@@ -19,6 +19,10 @@ async function query(data, model) {
     apiURL =
       'https://api-inference.huggingface.co/models/Linaqruf/animagine-xl-2.0';
     inputs = `${data.inputs}, best quality, masterpiece`;
+  } else if (model === 'sdxl') {
+    apiURL =
+      'https://api-inference.huggingface.co/models/stabilityai/stable-diffusion-xl-base-1.0';
+    inputs = `${data.inputs}, high quality`;
   }
 
   const response = await fetch(apiURL, {
@@ -121,7 +125,7 @@ const Create = () => {
         >
           <option value='Inkpunk-Diffusion'>Inkpunk Diffusion</option>
           <option value='animagine'>ANIMAGINE</option>
-          <option value='openjourney'>OpenJourney</option>
+          <option value='sdxl'>Stable Diffusion XL</option>
         </select>
 
         <input

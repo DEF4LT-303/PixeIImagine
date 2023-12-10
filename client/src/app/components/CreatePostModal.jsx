@@ -16,6 +16,7 @@ const CreatePostModal = ({ isOpen, onClose, data, action }) => {
   const [image, setImage] = useState(data?.image || '');
 
   const dispatch = useDispatch();
+  console.log(data);
 
   const handleClick = async () => {
     if (action === 'create') {

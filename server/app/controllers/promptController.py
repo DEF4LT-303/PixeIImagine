@@ -38,8 +38,13 @@ def delete_prompt(_id):
         if not prompt:
             return jsonify({'error': 'Prompt not found'}), 404
         
+        author_id = prompt['author']['_id']
+        user_data = UserModel.get_user(author_id)
+        
         PromptModel.delete_prompt(_id)
-        UserModel.update_user(prompt['author']['_id'], prompts=[prompt for prompt in UserModel.get_user(prompt['author']['_id'])['prompts'] if prompt['_id'] != _id])
+        prompts = [p for p in user_data['prompts'] if p != _id]
+        UserModel.update_user(author_id, prompts=prompts)
+
         return jsonify({'success': True})
 
     return jsonify({'error': 'Invalid request method'}), 405

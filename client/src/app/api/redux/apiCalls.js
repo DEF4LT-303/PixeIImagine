@@ -141,9 +141,13 @@ export const createPrompt = async (prompt) => {
   }
 };
 
-export const deletePrompt = async (id) => {
+export const deletePrompt = async (id, callback) => {
   try {
     await userRequest().delete(`/prompts/${id}`);
+
+    if (callback) {
+      callback();
+    }
   } catch (error) {
     console.log(error);
   }
