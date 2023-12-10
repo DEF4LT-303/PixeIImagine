@@ -6,7 +6,7 @@ import {
   getPosts,
   updatePost
 } from '@/app/api/redux/apiCalls';
-import EditPostModal from '@/app/components/EditPostModal';
+import CreatePostModal from '@/app/components/CreatePostModal';
 import { usePathname, useRouter } from 'next/navigation';
 import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
@@ -96,9 +96,9 @@ const Post = () => {
   return (
     <>
       {openModal && (
-        <EditPostModal
+        <CreatePostModal
           isOpen={openModal}
-          handleCloseModal={handleCloseModal}
+          onClose={handleCloseModal}
           data={feed}
         />
       )}
@@ -148,7 +148,12 @@ const Post = () => {
                       <a onClick={handleOpenModal}>Edit</a>
                     </li>
                     <li>
-                      <a onClick={handleDelete}>Delete</a>
+                      <a
+                        className='text-red-500 hover:text-red-500'
+                        onClick={handleDelete}
+                      >
+                        Delete
+                      </a>
                     </li>
                   </ul>
                 </button>

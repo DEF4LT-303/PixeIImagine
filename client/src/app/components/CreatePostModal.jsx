@@ -1,8 +1,15 @@
-import { createPost } from '@/app/api/redux/apiCalls';
+import { createPost, getPosts, updatePost } from '@/app/api/redux/apiCalls';
+import {
+  Modal,
+  ModalBody,
+  ModalContent,
+  ModalFooter,
+  ModalHeader
+} from '@nextui-org/react';
 import { useState } from 'react';
 import { useDispatch } from 'react-redux';
 
-const CreatePostModal = ({ isOpen, handleCloseModal, data }) => {
+const CreatePostModal = ({ isOpen, onClose, data, action }) => {
   const [title, setTitle] = useState(data?.title || '');
   const [description, setDescription] = useState(data?.description || '');
   const [prompt, setPrompt] = useState(data?.prompt || '');
@@ -10,141 +17,102 @@ const CreatePostModal = ({ isOpen, handleCloseModal, data }) => {
 
   const dispatch = useDispatch();
 
-  const handleBackdropClick = (e) => {
-    if (e.target.classList.contains('modal-backdrop')) {
-      handleCloseModal();
+  const handleClick = async () => {
+    if (action === 'create') {
+      const post = {
+        title,
+        description,
+        prompt,
+        image
+      };
+      await createPost(post, dispatch);
+      await getPosts(dispatch);
+      onClose();
+    } else {
+      const post = {
+        title,
+        description
+      };
+      await updatePost(data._id, post, dispatch);
+      await getPosts(dispatch);
+      onClose();
     }
   };
 
-  const handleSave = async () => {
-    const post = {
-      title,
-      description,
-      prompt,
-      image
-    };
-    await createPost(post, dispatch);
-    handleCloseModal();
-  };
-
   return (
-    <div
-      className={isOpen ? 'fixed inset-0 z-10 overflow-y-auto' : 'hidden'}
-      aria-labelledby='modal-title'
-      role='dialog'
-      aria-modal='true'
-      onClick={handleBackdropClick}
-    >
-      <div className='flex items-end justify-center min-h-screen px-4 pt-4 pb-20 text-center sm:block sm:p-0'>
-        <span
-          className='hidden sm:inline-block sm:h-screen sm:align-middle'
-          aria-hidden='true'
-        >
-          &#8203;
-        </span>
-        <div className='relative inline-block px-4 pt-5 pb-4 overflow-hidden text-left align-bottom transition-all transform bg-white rounded-lg shadow-xl dark:bg-base-200 sm:my-8 sm:w-full sm:max-w-sm sm:p-6 sm:align-middle'>
-          <h3
-            className='text-lg font-medium leading-6 text-gray-800 capitalize dark:text-white'
-            id='modal-title'
-          >
-            Create Post
-          </h3>
+    <>
+      <Modal
+        isOpen={isOpen}
+        onClose={onClose}
+        placement='center'
+        isDismissable={false}
+        classNames={{
+          backdrop: 'backdrop-filter backdrop-blur-sm'
+        }}
+      >
+        <ModalContent>
+          <div className='bg-base-200 rounded-lg'>
+            <ModalHeader className='flex flex-col gap-1 text-center text-2xl'>
+              Create Post
+            </ModalHeader>
+            <ModalBody>
+              <form className=''>
+                <div className='flex flex-col gap-2'>
+                  <div>
+                    <label className='block mt-5 mb-2 text-sm text-gray-600 dark:text-gray-200'>
+                      Title
+                    </label>
+                    <input
+                      type='text'
+                      name='title'
+                      id='title'
+                      placeholder='Title'
+                      value={title}
+                      onChange={(e) => setTitle(e.target.value)}
+                      className='input input-bordered w-full'
+                    />
+                  </div>
 
-          <form className='mt-6'>
-            <div>
-              <label className='block mt-5 mb-2 text-sm text-gray-600 dark:text-gray-200'>
-                Title
-              </label>
-              <input
-                type='text'
-                name='title'
-                id='title'
-                placeholder='Title'
-                value={title}
-                onChange={(e) => setTitle(e.target.value)}
-                className='block w-full px-4 py-2 mt-2 text-gray-700 placeholder-gray-400  border border-gray-200 rounded-lg dark:placeholder-gray-600 bg-inherit dark:text-gray-300 dark:border-gray-700 focus:border-blue-400 dark:focus:border-blue-400 focus:ring-blue-400 focus:outline-none focus:ring focus:ring-opacity-40'
-              />
-            </div>
+                  <div>
+                    <label className='block mt-5 mb-2 text-sm text-gray-600 dark:text-gray-200'>
+                      Description
+                    </label>
+                  </div>
+                  <textarea
+                    className='textarea textarea-bordered'
+                    placeholder='Description'
+                    value={description}
+                    onChange={(e) => setDescription(e.target.value)}
+                  ></textarea>
 
-            <div>
-              <label className='block mt-5 mb-2 text-sm text-gray-600 dark:text-gray-200'>
-                Description
-              </label>
-              <input
-                type='text'
-                name='description'
-                id='description'
-                placeholder='Description'
-                value={description}
-                onChange={(e) => setDescription(e.target.value)}
-                className='block w-full px-4 py-2 mt-2 text-gray-700 placeholder-gray-400  border border-gray-200 rounded-lg dark:placeholder-gray-600 bg-inherit dark:text-gray-300 dark:border-gray-700 focus:border-blue-400 dark:focus:border-blue-400 focus:ring-blue-400 focus:outline-none focus:ring focus:ring-opacity-40'
-              />
-            </div>
-
-            <div>
-              <label className='block mt-5 mb-2 text-sm text-gray-600 dark:text-gray-200'>
-                Prompt
-              </label>
-              <input
-                type='text'
-                name='prompt'
-                id='prompt'
-                value={prompt}
-                disabled
-                className='block w-full px-4 py-2 mt-2 text-gray-700 placeholder-gray-400  border border-gray-200 rounded-lg dark:placeholder-gray-600 bg-inherit dark:text-gray-300 dark:border-gray-700 focus:border-blue-400 dark:focus:border-blue-400 focus:ring-blue-400 focus:outline-none focus:ring focus:ring-opacity-40'
-              />
-            </div>
-          </form>
-
-          <div className='flex flex-row justify-between'>
-            <button
-              type='button'
-              onClick={handleCloseModal}
-              className='mt-2 flex items-center rounded py-1.5 px-2 text-sm text-blue-600 transition-colors duration-300 hover:text-blue-400 focus:outline-none dark:text-blue-400 dark:hover:text-blue-500'
-            >
-              <svg
-                xmlns='http://www.w3.org/2000/svg'
-                className='w-4 h-4'
-                fill='none'
-                viewBox='0 0 24 24'
-                stroke='currentColor'
-                strokeWidth='3'
-              >
-                <path
-                  strokeLinecap='round'
-                  strokeLinejoin='round'
-                  d='M6 18L18 6M6 6l12 12'
-                ></path>
-              </svg>
-              <span className='mx-2'>Close</span>
-            </button>
-
-            <button
-              type='button'
-              onClick={handleSave}
-              className='mt-2 flex items-center rounded py-1.5 px-2 text-sm text-blue-600 transition-colors duration-300 hover:text-blue-400 focus:outline-none dark:text-blue-400 dark:hover:text-blue-500'
-            >
-              <span className='mx-2'>Save</span>
-              <svg
-                className='w-4 h-4 '
-                aria-hidden='true'
-                xmlns='http://www.w3.org/2000/svg'
-                fill='none'
-                viewBox='0 0 14 10'
-                stroke='currentColor'
-                strokeWidth='2'
-              >
-                <path
-                  strokeLinecap='round'
-                  strokeLinejoin='round'
-                  d='M1 5h12m0 0L9 1m4 4L9 9'
-                />
-              </svg>
-            </button>
+                  <div>
+                    <label className='block mt-5 mb-2 text-sm text-gray-600 dark:text-gray-200'>
+                      Prompt
+                    </label>
+                    <input
+                      type='text'
+                      name='prompt'
+                      id='prompt'
+                      placeholder='Prompt'
+                      value={prompt}
+                      className='input input-bordered w-full cursor-not-allowed'
+                    />
+                  </div>
+                </div>
+              </form>
+            </ModalBody>
+            <ModalFooter>
+              <button className='btn btn-error btn-outline' onClick={onClose}>
+                Close
+              </button>
+              <button className='btn btn-primary' onClick={handleClick}>
+                Post
+              </button>
+            </ModalFooter>
           </div>
-        </div>
-      </div>
-    </div>
+        </ModalContent>
+      </Modal>
+    </>
   );
 };
 

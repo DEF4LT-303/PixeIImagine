@@ -25,8 +25,9 @@ const Gallery = ({ prompts }) => {
       {openModal && (
         <CreatePostModal
           isOpen={openModal}
-          handleCloseModal={handleCloseModal}
+          onClose={handleCloseModal}
           data={selectedPrompt}
+          action={'create'}
         />
       )}
       <div className='container grid grid-cols-2 gap-4 p-4 mx-auto md:grid-cols-4'>
