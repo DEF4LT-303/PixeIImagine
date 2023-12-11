@@ -23,6 +23,8 @@ async function query(data, model) {
     apiURL =
       'https://api-inference.huggingface.co/models/stabilityai/stable-diffusion-xl-base-1.0';
     inputs = `${data.inputs}, high quality`;
+  } else if (model === 'dreamshaper') {
+    apiURL = 'https://api-inference.huggingface.co/models/Lykon/dreamshaper-7';
   }
 
   const response = await fetch(apiURL, {
@@ -126,6 +128,7 @@ const Create = () => {
           <option value='Inkpunk-Diffusion'>Inkpunk Diffusion</option>
           <option value='animagine'>ANIMAGINE</option>
           <option value='sdxl'>Stable Diffusion XL</option>
+          <option value='dreamshaper'>Dreamshaper 7</option>
         </select>
 
         <input
