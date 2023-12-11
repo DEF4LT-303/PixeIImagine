@@ -18,7 +18,7 @@ const CreatePostModal = ({ isOpen, onClose, data, action }) => {
   const dispatch = useDispatch();
 
   const handleClick = async () => {
-    if (action === 'create') {
+    if (action === 'Create') {
       const post = {
         title,
         description,
@@ -53,7 +53,7 @@ const CreatePostModal = ({ isOpen, onClose, data, action }) => {
         <ModalContent>
           <div className='bg-base-200 rounded-lg'>
             <ModalHeader className='flex flex-col gap-1 text-center text-2xl'>
-              Create Post
+              {action} Post
             </ModalHeader>
             <ModalBody>
               <form className=''>

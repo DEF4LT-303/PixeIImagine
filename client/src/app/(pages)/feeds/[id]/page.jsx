@@ -100,6 +100,7 @@ const Post = () => {
           isOpen={openModal}
           onClose={handleCloseModal}
           data={feed}
+          action={'Update'}
         />
       )}
       <div className='flex item-center justify-center my-10 mx-10'>

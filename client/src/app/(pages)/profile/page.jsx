@@ -77,7 +77,7 @@ const Profile = () => {
           />
         )}
         <img
-          src='https://t3.ftcdn.net/jpg/05/78/94/94/360_F_578949486_IUFDkbOIhPmDkiKwCNvG7oOAtP9sNvO6.jpg'
+          src='https://i.redd.it/a3ftzqi7ide71.png'
           alt='background'
           className='px-5 py-5 h-[200px] w-full bg-center bg-cover contrast-75 filter relative'
         />

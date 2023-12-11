@@ -38,7 +38,7 @@ const Gallery = ({ prompts }) => {
           isOpen={openModal}
           onClose={handleCloseModal}
           data={selectedPrompt}
-          action={'create'}
+          action={'Create'}
         />
       )}
       {openDeleteModal && (
