@@ -95,7 +95,7 @@ const CreatePostModal = ({ isOpen, onClose, data, action }) => {
                       id='prompt'
                       placeholder='Prompt'
                       value={prompt}
-                      className='input input-bordered w-full cursor-not-allowed'
+                      className='input input-bordered w-full cursor-not-allowed text-gray-500'
                     />
                   </div>
                 </div>

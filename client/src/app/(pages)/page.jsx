@@ -16,9 +16,9 @@ const page = () => {
     <div>
       <Header />
 
-      <section className='bg-base-100 mt-20'>
+      <section className='bg-inherit mt-20'>
         <div className='container flex flex-col-reverse mx-auto lg:flex-row'>
-          <div className='flex flex-col gap-20 px-6 py-8 space-y-6 rounded-sm sm:p-8 lg:p-12 lg:w-1/2 xl:w-2/5 dark:bg-violet-400 dark:text-gray-900'>
+          <div className='flex flex-col gap-20 px-6 py-8 space-y-6 rounded-sm sm:p-8 lg:p-12 lg:w-1/2 xl:w-2/5 bg-violet-400 dark:text-gray-900'>
             <div className='flex space-x-2 sm:space-x-4'>
               <svg
                 xmlns='http://www.w3.org/2000/svg'
@@ -88,12 +88,12 @@ const page = () => {
               </div>
             </div>
           </div>
-          <div className='lg:w-1/2 xl:w-3/5 dark:bg-gray-800'>
-            <div className='flex items-center justify-center p-4 md:p-8 lg:p-12'>
+          <div className=''>
+            <div className='flex items-center justify-center lg:pl-4 pl-0'>
               <img
                 src='https://firebasestorage.googleapis.com/v0/b/pixeiimagine.appspot.com/o/images%2F773328b3-4f9d-4c80-94d2-2023c3c6edd7?alt=media&token=a3e2cbe0-f187-4378-9811-23270744fba0'
                 alt=''
-                className='rounded-lg shadow-lg  bg-cover dark:bg-gray-500 sm:min-h-96'
+                className=' shadow-lg  bg-cover dark:bg-gray-500 sm:min-h-full'
               />
             </div>
           </div>
